@@ -1,0 +1,55 @@
+---
+# Fedora CoreOS Kubernetes init with kubeadm
+
+- name: Fedora CoreOS Kubernetes init with kubeadm
+  hosts: 192.168.1.201
+  gather_facts: true
+
+  tasks:
+  
+  - name: Test connection with ping
+    ping:
+
+#  - name: Copy clusterconfig.yaml
+#    ansible.builtin.copy:
+#      src: /home/p/fcos-k8s/clusterconfig.yaml
+#      dest: /root/clusterconfig.yaml
+#      owner: root
+#      group: root
+#      mode: '0700'
+
+#  - name: Execute kubeadm init
+#    raw: /usr/bin/kubeadm init --config /root/clusterconfig.yaml
+#    register: kubeadm_output
+
+#  - debug: var=kubeadm_output.stdout_lines
+
+  - name: Create /home/p/.kube directory on ansible node
+    remote_user: p
+    become: no
+    local_action:
+      module: ansible.builtin.file
+      path: /home/p/.kube
+      state: directory
+      mode: '0700'
+
+  - name: Copy /etc/kubernetes/admin.conf from node1 to /home/p/.kube locally
+    ansible.builtin.fetch:
+      src: /etc/kubernetes/admin.conf
+      dest: /home/p/.kube
+
+  - name: Move /home/p/.kube/192.168.1.201/etc/kubernetes/admin.conf to /home/p/.kube/config on ansible node
+    remote_user: p
+    become: no
+    local_action: ansible.builtin.command mv /home/p/.kube/192.168.1.201/etc/kubernetes/admin.conf /home/p/.kube/config
+
+  - name: Do chmod 700 /home/p/.kube/config on ansible node
+    remote_user: p
+    become: no
+    local_action: ansible.builtin.command chmod 700 /home/p/.kube/config
+
+  - name: Delete with rm -rf /home/p/.kube/192.168.1.201 on ansible node
+    remote_user: p
+    become: no
+    local_action: ansible.builtin.command rm -rf /home/p/.kube/192.168.1.201
+
