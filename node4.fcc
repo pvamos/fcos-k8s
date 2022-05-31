@@ -1,0 +1,55 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      groups:
+        - docker
+        - wheel
+        - sudo
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINHKcyMU729C1TDw+o+Ubh2Fz9VO11Ir6cOnVd30mKlG p@fedora
+storage:
+  files:
+    - path: /etc/hostname
+      overwrite: true
+      contents:
+        inline: node4.k8s.local
+    - path: /etc/hosts
+      overwrite: true
+      contents:
+        inline: |
+          127.0.0.1       localhost             localhost.localdomain localhost4 localhost4.localdomain4
+          ::1             localhost             localhost.localdomain localhost6 localhost6.localdomain6
+          192.168.1.201   node1.k8s.local       node1
+          192.168.1.202   node2.k8s.local       node2
+          192.168.1.203   node3.k8s.local       node3
+          192.168.1.204   node4.k8s.local       node4
+          192.168.1.210   ansible.peter.local   ansible
+    - path: /etc/sysctl.d/10-disable-ipv6.conf
+      contents:
+        inline: |
+          net.ipv6.conf.all.disable_ipv6=1
+          net.ipv6.conf.default.disable_ipv6=1
+          net.ipv6.conf.enp0s4.disable_ipv6=1
+systemd:
+  units:
+    - name: python3-for-ansible.service
+      enabled: true
+      contents: |
+          [Unit]
+          Requires=network-online.target
+          After=network-online.target
+          Before=sshd.service
+          [Service]
+          Type=oneshot
+          ExecCondition=/usr/bin/test ! -f /etc/python3-for-ansible.done
+          ExecStart=/usr/bin/sed -i '/\\[updates\\]/,/^\\[/ s/^enabled=.*$/enabled=0/' /etc/yum.repos.d/fedora-updates.repo
+          ExecStart=/usr/bin/rpm-ostree install python3 libselinux-python3
+          ExecStart=/usr/bin/sed -i '/\\[updates\\]/,/^\\[/ s/^enabled=.*$/enabled=1/' /etc/yum.repos.d/fedora-updates.repo
+          ExecStart=/usr/bin/sed -i '/^\\[updates\\]/a exclude=libxcrypt-compat* mpdecimal* python-pip-wheel* python-setuptools-wheel* python-unversioned-command* python3* python3-libs* python3-selinux*' /etc/yum.repos.d/fedora-updates.repo
+          ExecStartPost=/usr/bin/touch /etc/python3-for-ansible.done
+          ExecStartPost=/usr/sbin/shutdown -r now
+          [Install]
+          WantedBy=multi-user.target
+

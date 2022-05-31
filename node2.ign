@@ -1,0 +1,54 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "groups": [
+          "docker",
+          "wheel",
+          "sudo"
+        ],
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINHKcyMU729C1TDw+o+Ubh2Fz9VO11Ir6cOnVd30mKlG p@fedora"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "overwrite": true,
+        "path": "/etc/hostname",
+        "contents": {
+          "source": "data:,node2.k8s.local"
+        }
+      },
+      {
+        "overwrite": true,
+        "path": "/etc/hosts",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/5TN0arDIAzG8XufwicIJgZPT9/GrcLKnI7Z92esDV0Eb+ZV+PPjE+kPHDhAe7xcrzHfatusfmeF/VrqI67lW1mdWrCZZxwP/TIf1KlFMPhPgGECBHKfj0pdEsJ9ageT+b12lqTS0FJnvVQ/tL6zLJWHlrVFZ62Npa2XnOCZtvQ6vVTzDgAA//9aTkCLnAEAAA=="
+        }
+      },
+      {
+        "path": "/etc/sysctl.d/10-disable-ipv6.conf",
+        "contents": {
+          "source": "data:,net.ipv6.conf.all.disable_ipv6%3D1%0Anet.ipv6.conf.default.disable_ipv6%3D1%0Anet.ipv6.conf.enp0s4.disable_ipv6%3D1%0A"
+        }
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nRequires=network-online.target\nAfter=network-online.target\nBefore=sshd.service\n[Service]\nType=oneshot\nExecCondition=/usr/bin/test ! -f /etc/python3-for-ansible.done\nExecStart=/usr/bin/sed -i '/\\\\[updates\\\\]/,/^\\\\[/ s/^enabled=.*$/enabled=0/' /etc/yum.repos.d/fedora-updates.repo\nExecStart=/usr/bin/rpm-ostree install python3 libselinux-python3\nExecStart=/usr/bin/sed -i '/\\\\[updates\\\\]/,/^\\\\[/ s/^enabled=.*$/enabled=1/' /etc/yum.repos.d/fedora-updates.repo\nExecStart=/usr/bin/sed -i '/^\\\\[updates\\\\]/a exclude=libxcrypt-compat* mpdecimal* python-pip-wheel* python-setuptools-wheel* python-unversioned-command* python3* python3-libs* python3-selinux*' /etc/yum.repos.d/fedora-updates.repo\nExecStartPost=/usr/bin/touch /etc/python3-for-ansible.done\nExecStartPost=/usr/sbin/shutdown -r now\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "python3-for-ansible.service"
+      }
+    ]
+  }
+}
