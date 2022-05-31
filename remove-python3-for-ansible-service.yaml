@@ -1,0 +1,36 @@
+# Fedora CoreOS remove python3-for-ansible.service
+
+- name: Fedora CoreOS remove python3-for-ansible.service
+  hosts: masters:workers
+  gather_facts: true
+
+  tasks:
+
+  - name: Test connection with ping
+    ping:
+
+  - name: Disable python3-for-ansible.service
+    ansible.builtin.systemd:
+      name: python3-for-ansible.service
+      enabled: no
+
+  - name: Remove file /etc/python3-for-ansible.done
+    ansible.builtin.file:
+      path: /etc/python3-for-ansible.done
+      state: absent
+
+  - name: Remove file /etc/systemd/system/python3-for-ansible.service
+    ansible.builtin.file:
+      path: /etc/systemd/system/python3-for-ansible.service
+      state: absent
+
+  - name: Force systemd to reread configs
+    ansible.builtin.systemd:
+      daemon_reload: yes
+
+  - name: Reboot
+    reboot:
+      reboot_timeout: 600
+
+  - name: Test connection with ping
+    ping:
