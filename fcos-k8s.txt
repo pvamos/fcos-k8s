@@ -780,6 +780,71 @@ PLAY RECAP *********************************************************************
 
 
 
+
+[p@ansible fcos-k8s]$ ansible-playbook -i ./hosts remove-python3-for-ansible-service.yaml
+
+PLAY [Fedora CoreOS remove python3-for-ansible.service] ***************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [192.168.1.203]
+ok: [192.168.1.204]
+ok: [192.168.1.202]
+ok: [192.168.1.201]
+
+TASK [Test connection with ping] **************************************************************************************
+ok: [192.168.1.203]
+ok: [192.168.1.202]
+ok: [192.168.1.204]
+ok: [192.168.1.201]
+
+TASK [Disable python3-for-ansible.service] ****************************************************************************
+changed: [192.168.1.203]
+changed: [192.168.1.202]
+changed: [192.168.1.201]
+changed: [192.168.1.204]
+
+TASK [Remove file /etc/python3-for-ansible.done] **********************************************************************
+changed: [192.168.1.203]
+changed: [192.168.1.202]
+changed: [192.168.1.201]
+changed: [192.168.1.204]
+
+TASK [Remove file /etc/systemd/system/python3-for-ansible.service] ****************************************************
+changed: [192.168.1.202]
+changed: [192.168.1.201]
+changed: [192.168.1.203]
+changed: [192.168.1.204]
+
+TASK [Force systemd to reread configs] ********************************************************************************
+ok: [192.168.1.203]
+ok: [192.168.1.201]
+ok: [192.168.1.202]
+ok: [192.168.1.204]
+
+TASK [Reboot] *********************************************************************************************************
+changed: [192.168.1.201]
+changed: [192.168.1.202]
+changed: [192.168.1.203]
+changed: [192.168.1.204]
+
+TASK [Test connection with ping] **************************************************************************************
+ok: [192.168.1.201]
+ok: [192.168.1.202]
+ok: [192.168.1.204]
+ok: [192.168.1.203]
+
+PLAY RECAP ************************************************************************************************************
+192.168.1.201              : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+192.168.1.202              : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+192.168.1.203              : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+192.168.1.204              : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[p@ansible fcos-k8s]$
+
+
+
+
+
 https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/
 
 
