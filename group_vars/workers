@@ -1,0 +1,7 @@
+---
+# The variables file used by the playbooks in the workers group.
+# These don't have to be explicitly imported by vars_files: they are autopopulated.
+
+ansible_user: core
+ansible_connection: ssh
+ansible_become: yes
