@@ -16,7 +16,9 @@
   ansible.builtin.raw: /root/fcos-k8s.sh
   register: fcos_k8s_output
 
-- ansible.builtin.debug: var=fcos_k8s_output.stdout_lines
+- name: Print fcos-k8s.sh output
+  ansible.builtin.debug
+    var: fcos_k8s_output.stdout_lines
 
 - name: Reboot
   ansible.builtin.reboot:
