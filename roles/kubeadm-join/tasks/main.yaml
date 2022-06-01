@@ -1,0 +1,30 @@
+---
+# Fedora CoreOS Kubernetes kubeadm join
+
+- name: Test connection with ping
+  ansible.builtin.ping:
+
+- name: Print kubeadm join command with tokens
+  ansible.builtin.debug:
+    var: kubeadm_join_command
+
+- name: Execute kubeadm join
+  ansible.builtin.command:
+    cmd: "{{ kubeadm_join_command }}"
+  register: kubeadm_join_output
+
+- name: Print kubeadm join output
+  ansible.builtin.debug:
+    var: kubeadm_join_output.stdout_lines
+
+- name: Get kubeadm get no
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.command:
+    cmd: kubeadm get no -owide
+  register: kubeadm_getno_output
+
+- name: Print kubeadm get no output
+  ansible.builtin.debug:
+    var: kubeadm_getno_output.stdout_lines

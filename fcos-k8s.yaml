@@ -2,7 +2,6 @@
 
 - name: Fedora CoreOS Kubernetes setup with kubeadm
   hosts: masters:workers
-
   roles:
     - remove-python3-for-ansible-service
     - fcos-k8s-sh
@@ -10,6 +9,10 @@
 
 - name: Fedora CoreOS Kubernetes init with kubeadm
   hosts: masters
-
   roles:
     - kubeadm-init
+
+- name: Fedora CoreOS Kubernetes kubeadm join
+  hosts: workers
+  roles:
+    - kubeadm-join
