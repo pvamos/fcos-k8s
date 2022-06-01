@@ -1,0 +1,27 @@
+---
+# Fedora CoreOS Kubernetes execute fcos-k8s.sh
+  
+- name: Test connection with ping
+  ansible.builtin.ping:
+
+- name: Copy fcos-k8s.sh
+  ansible.builtin.copy:
+    src: /home/p/core/fcos-k8s.sh
+    dest: /root/fcos-k8s.sh
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: Execute fcos-k8s.sh
+  ansible.builtin.raw: /root/fcos-k8s.sh
+  register: fcos_k8s_output
+
+- ansible.builtin.debug: var=fcos_k8s_output.stdout_lines
+
+- name: Reboot
+  ansible.builtin.reboot:
+    reboot_timeout: 600
+
+- name: Test connection with ping
+    ansible.builtin.ping:
+
