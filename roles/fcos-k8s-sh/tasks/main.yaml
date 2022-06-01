@@ -17,7 +17,7 @@
   register: fcos_k8s_output
 
 - name: Print fcos-k8s.sh output
-  ansible.builtin.debug
+  ansible.builtin.debug:
     var: fcos_k8s_output.stdout_lines
 
 - name: Reboot
@@ -25,5 +25,6 @@
     reboot_timeout: 600
 
 - name: Test connection with ping
-    ansible.builtin.ping:
+  ansible.builtin.ping:
+
 

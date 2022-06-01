@@ -794,6 +794,10 @@ PLAY RECAP *********************************************************************
 
 
 
+https://stackoverflow.com/questions/59775792/how-to-grab-last-two-lines-from-ansible-register-stdout-initialization-of-kube
+
+
+
 
 [p@ansible fcos-k8s]$ ansible-playbook -i ./hosts remove-python3-for-ansible-service.yaml
 
