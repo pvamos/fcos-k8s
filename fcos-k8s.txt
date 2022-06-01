@@ -28,6 +28,20 @@ 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
 Personal access tokens function like ordinary OAuth access tokens. They can be used instead of a password for Git over HTTPS, or can be used to authenticate to the API over Basic Authentication. 
 
 
+
+https://docs.ansible.com/ansible/latest/collections/ansible/posix/profile_tasks_callback.html
+
+[p@ansible fcos-k8s]$ ansible-galaxy collection install ansible.posix
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/download/ansible-posix-1.4.0.tar.gz to /home/p/.ansible/tmp/ansible-local-64018ecfbb4e/tmprrsk_inw/ansible-posix-1.4.0-syyloc98
+Installing 'ansible.posix:1.4.0' to '/home/p/.ansible/collections/ansible_collections/ansible/posix'
+ansible.posix:1.4.0 was installed successfully
+[p@ansible fcos-k8s]$
+
+
+
 00:A0:98:03:83:10	192.168.1.210
 00:A0:98:03:83:4C	192.168.1.201
 00:A0:98:03:83:4D	192.168.1.202
