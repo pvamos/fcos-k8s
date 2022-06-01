@@ -22,7 +22,7 @@
 
 - name: Get kubeadm join command with tokens
   ansible.builtin.set_fact:
-    kubeadm_join_command: '{{ kubeadm_output.stdout_lines[-2][:-1] }}{{ kubeadm_output.stdout_lines[-1] | trim }}'
+    kubeadm_join_command: "{{ kubeadm_output.stdout_lines[-2][:-1] }}{{ kubeadm_output.stdout_lines[-1] | trim }}"
 
 - name: Print kubeadm join command with tokens
   ansible.builtin.debug:
@@ -61,4 +61,5 @@
   become: no
   delegate_to: 127.0.0.1
   ansible.builtin.command:
-    cmd rm -rf /home/p/.kube/192.168.1.201
+    cmd: rm -rf /home/p/.kube/192.168.1.201
+
