@@ -6,11 +6,11 @@
 
 - name: Print kubeadm join command with tokens
   ansible.builtin.debug:
-    var: kubeadm_join_command
+    var: {{ hostvars[node1.k8s.local][kubeadm_join_command] }}
 
 - name: Execute kubeadm join
   ansible.builtin.command:
-    cmd: "{{ kubeadm_join_command }}"
+    cmd: {{ hostvars[node1.k8s.local][kubeadm_join_command] }}
   register: kubeadm_join_output
 
 - name: Print kubeadm join output
