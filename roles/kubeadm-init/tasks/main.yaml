@@ -14,19 +14,33 @@
 
 - name: Execute kubeadm init
   ansible.builtin.raw: /usr/bin/kubeadm init --config /root/clusterconfig.yaml
-  register: kubeadm_output
+  register: kubeadm_init_output
 
 - name: Print kubeadm init output
   ansible.builtin.debug:
-    var: kubeadm_output.stdout_lines
+    var: kubeadm_init_output.stdout_lines
 
+# this is working if the last 2 lines of kubeadm init output is formatted like below
+# if format changes, adjustments are needed
+#
+#kubeadm join 192.168.1.201:6443 --token b0n35n.ypc22pqnfhw60r9f \
+#        --discovery-token-ca-cert-hash sha256:e06939370cda901ecd4324fe061b78867576020d5b8fd503e1c48e93c7e0cf05
 - name: Get kubeadm join command with tokens
   ansible.builtin.set_fact:
-    kubeadm_join_command: "{{ kubeadm_output.stdout_lines[-2][:-1] }}{{ kubeadm_output.stdout_lines[-1] | trim }}"
+    kubeadm_join_command: "{{ kubeadm_init_output.stdout_lines[-2][:-1] }}{{ kubeadm_init_output.stdout_lines[-1] | trim }}"
 
 - name: Print kubeadm join command with tokens
   ansible.builtin.debug:
     var: kubeadm_join_command
+
+- name: Create /home/p/fcos-k8s/kubeadm-join-command.sh file on ansible node
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.copy:
+    dest: /home/p/fcos-k8s/kubeadm-join-command.sh
+    mode: '0600'
+    content: "{{ kubeadm_join_command }}"
 
 - name: Create /home/p/.kube directory on ansible node
   remote_user: p
@@ -42,12 +56,12 @@
     src: /etc/kubernetes/admin.conf
     dest: /home/p/.kube
 
-- name: Move /home/p/.kube/192.168.1.201/etc/kubernetes/admin.conf to /home/p/.kube/config on ansible node
+- name: Move /home/p/.kube/node1.k8s.local/etc/kubernetes/admin.conf to /home/p/.kube/config on ansible node
   remote_user: p
   become: no
   delegate_to: 127.0.0.1
   ansible.builtin.command:
-    cmd: mv /home/p/.kube/192.168.1.201/etc/kubernetes/admin.conf /home/p/.kube/config
+    cmd: mv /home/p/.kube/node1.k8s.local/etc/kubernetes/admin.conf /home/p/.kube/config
 
 - name: Do chmod 700 /home/p/.kube/config on ansible node
   remote_user: p
@@ -56,10 +70,10 @@
   ansible.builtin.command:
     cmd: chmod 700 /home/p/.kube/config
 
-- name: Delete with rm -rf /home/p/.kube/192.168.1.201 on ansible node
+- name: Delete with rm -rf /home/p/.kube/node1.k8s.local on ansible node
   remote_user: p
   become: no
   delegate_to: 127.0.0.1
   ansible.builtin.command:
-    cmd: rm -rf /home/p/.kube/192.168.1.201
+    cmd: rm -rf /home/p/.kube/node1.k8s.local
 

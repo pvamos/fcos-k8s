@@ -4,13 +4,17 @@
 - name: Test connection with ping
   ansible.builtin.ping:
 
+- name: Get kubeadm join command with tokens from local file
+  ansible.builtin.set_fact:
+    kubeadm_join_command: "{{ lookup('file', '/home/p/fcos-k8s/kubeadm-join-command.sh') }}"
+
 - name: Print kubeadm join command with tokens
   ansible.builtin.debug:
-    var: {{ hostvars[node1.k8s.local][kubeadm_join_command] }}
+    msg: "{{ kubeadm_join_command }}"
 
 - name: Execute kubeadm join
   ansible.builtin.command:
-    cmd: {{ hostvars[node1.k8s.local][kubeadm_join_command] }}
+    cmd: "{{ kubeadm_join_command }}"
   register: kubeadm_join_output
 
 - name: Print kubeadm join output
