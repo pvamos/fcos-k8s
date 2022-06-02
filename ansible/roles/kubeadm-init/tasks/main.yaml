@@ -6,7 +6,7 @@
 
 - name: Copy clusterconfig.yaml
   ansible.builtin.copy:
-    src: /home/p/fcos-k8s/clusterconfig.yaml
+    src: /home/p/fcos-k8s/ansible/clusterconfig.yaml
     dest: /root/clusterconfig.yaml
     owner: root
     group: root
