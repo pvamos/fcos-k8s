@@ -9,6 +9,6 @@
     - role: kubeadm-init
       when: inventory_hostname in groups.master
       # kubeadm join on workers
-    - role: kubeadm-join
-      when: inventory_hostname in groups.workers
+#    - role: kubeadm-join
+#      when: inventory_hostname in groups.workers
 

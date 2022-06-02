@@ -6,7 +6,7 @@
 
 - name: Copy fcos-k8s.sh
   ansible.builtin.copy:
-    src: /home/p/core/fcos-k8s.sh
+    src: /home/p/fcos-k8s/ansible/fcos-k8s.sh
     dest: /root/fcos-k8s.sh
     owner: root
     group: root
