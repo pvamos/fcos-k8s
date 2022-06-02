@@ -1,7 +1,7 @@
 [master]
-192.168.1.201
+node1.k8s.local
 
 [workers]
-192.168.1.202
-192.168.1.203
-192.168.1.204
+node2.k8s.local
+node3.k8s.local
+node4.k8s.local
