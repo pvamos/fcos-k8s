@@ -21,14 +21,14 @@
   ansible.builtin.debug:
     var: kubeadm_join_output.stdout_lines
 
-- name: Get kubeadm get no
+- name: Get kubectl get no
   remote_user: p
   become: no
   delegate_to: 127.0.0.1
   ansible.builtin.command:
-    cmd: kubeadm get no -owide
-  register: kubeadm_getno_output
+    cmd: /usr/bin/kubectl get no -owide
+  register: kubectl_getno_output
 
-- name: Print kubeadm get no output
+- name: Print kubectl get no output
   ansible.builtin.debug:
-    var: kubeadm_getno_output.stdout_lines
+    var: kubectl_getno_output.stdout_lines
