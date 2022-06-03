@@ -24,7 +24,6 @@
   ansible.builtin.reboot:
     post_reboot_delay: 10
     reboot_timeout: 600
-    
 
 - name: Test connection with ping
   ansible.builtin.ping:

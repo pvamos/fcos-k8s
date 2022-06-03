@@ -17,3 +17,23 @@
   ansible.builtin.debug:
     var: flannel_deploy_output.stdout_lines
 
+- name: Reboot master node
+  ansible.builtin.reboot:
+    post_reboot_delay: 10
+    reboot_timeout: 600
+
+- name: Test connection to master node
+  ansible.builtin.ping:
+
+- name: Pod Status Check
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.command:
+    cmd: /usr/bin/kubectl get pod --all-namespaces -o jsonpath="{range .items[*]}{.status.phase}{'\n'}{end}" | /usr/bin/uniq
+  register: podcheck_output
+  until: "'Running' in podcheck_output.content"
+  ignore_errors: yes
+  retries: 10
+  delay: 10
+
