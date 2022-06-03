@@ -5,22 +5,22 @@
   ansible.builtin.ping:
   delegate_to: 127.0.0.1
 
-#- name: Move /home/p/.kube/node1.k8s.local/etc/kubernetes/admin.conf to /home/p/.kube/config on ansible node
-#  remote_user: p
-#  become: no
-#  delegate_to: 127.0.0.1
-#  ansible.builtin.command:
-#    cmd: /usr/bin/kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-#  register: flannel_deploy_output
+- name: Deploy flannel
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.command:
+    cmd: /usr/bin/kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  register: flannel_deploy_output
 
-#- name: Print Flannel deploy output
-#  ansible.builtin.debug:
-#    var: flannel_deploy_output.stdout_lines
+- name: Print Flannel deploy output
+  ansible.builtin.debug:
+    var: flannel_deploy_output.stdout_lines
 
-#- name: Reboot master node
-#  ansible.builtin.reboot:
-#    post_reboot_delay: 10
-#    reboot_timeout: 600
+- name: Reboot master node
+  ansible.builtin.reboot:
+    post_reboot_delay: 10
+    reboot_timeout: 600
 
 - name: Test connection to master node
   ansible.builtin.ping:
@@ -32,11 +32,13 @@
   ansible.builtin.command:
     cmd: kubectl get pod -n kube-system -l app=flannel -o jsonpath='{..status.phase}'
   register: flannel_podcheck_output
-  until: flannel_podcheck_output == "Running"
+  until: flannel_podcheck_output.stdout == "Running"
   ignore_errors: yes
   retries: 20
   delay: 10
 
-- name: Print Pod Status Check
+- name: Print Pod Status
   ansible.builtin.debug:
-    var: flannel_podcheck_output
+    var: flannel_podcheck_output.stdout
+
+

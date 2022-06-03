@@ -3,15 +3,15 @@
 - name: Fedora CoreOS Kubernetes setup with kubeadm
   hosts: master:workers
   roles:
-#    - remove-python3-for-ansible-service
-#    - fcos-k8s-sh
+    - remove-python3-for-ansible-service
+    - fcos-k8s-sh
       # kubeadm init on master
-#    - role: kubeadm-init
-#      when: inventory_hostname in groups.master
+    - role: kubeadm-init
+      when: inventory_hostname in groups.master
       # flannel depoy on ansible node
     - role: flannel-deploy
       when: inventory_hostname in groups.master
       # kubeadm join on workers
-#    - role: kubeadm-join
-#      when: inventory_hostname in groups.workers
+    - role: kubeadm-join
+      when: inventory_hostname in groups.workers
 
