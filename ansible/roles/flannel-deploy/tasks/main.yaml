@@ -32,7 +32,7 @@
   ansible.builtin.command:
     cmd: /usr/bin/kubectl get pod --all-namespaces -o jsonpath="{range .items[*]}{.status.phase}{'\n'}{end}" | /usr/bin/uniq
   register: podcheck_output
-  until: "'Running' in podcheck_output.content"
+  until: 'Running' in podcheck_output.content
   ignore_errors: yes
   retries: 10
   delay: 10
