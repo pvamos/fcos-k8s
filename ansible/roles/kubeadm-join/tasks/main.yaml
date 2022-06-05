@@ -7,19 +7,31 @@
 - name: Get kubeadm join command with tokens from local file
   ansible.builtin.set_fact:
     kubeadm_join_command: "{{ lookup('file', '/home/p/fcos-k8s/kubeadm-join-command.sh') }}"
+  when: inventory_hostname in groups.workers
 
 - name: Print kubeadm join command with tokens
   ansible.builtin.debug:
     msg: "{{ kubeadm_join_command }}"
+  when: inventory_hostname in groups.workers
 
 - name: Execute kubeadm join
   ansible.builtin.command:
     cmd: "{{ kubeadm_join_command }}"
   register: kubeadm_join_output
+  when: inventory_hostname in groups.workers
 
 - name: Print kubeadm join output
   ansible.builtin.debug:
     var: kubeadm_join_output.stdout_lines
+  when: inventory_hostname in groups.workers
+
+- name: Reboot all nodes
+  ansible.builtin.reboot:
+    post_reboot_delay: 10
+    reboot_timeout: 600
+
+- name: Test connection with ping
+  ansible.builtin.ping:
 
 - name: Get kubectl get no
   remote_user: p
@@ -28,7 +40,24 @@
   ansible.builtin.command:
     cmd: /usr/bin/kubectl get no -owide
   register: kubectl_getno_output
+  when: inventory_hostname in groups.master
 
 - name: Print kubectl get no output
   ansible.builtin.debug:
     var: kubectl_getno_output.stdout_lines
+  when: inventory_hostname in groups.master
+
+- name: Get kubectl get pod
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.command:
+    cmd: /usr/bin/kubectl get pod --all-namespaces -owide
+  register: get_pods
+  when: inventory_hostname in groups.master
+
+- name: Print kubectl get po output
+  ansible.builtin.debug:
+    var: get_pods.stdout_lines
+  when: inventory_hostname in groups.master
+

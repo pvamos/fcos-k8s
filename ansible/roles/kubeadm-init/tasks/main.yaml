@@ -70,6 +70,14 @@
   ansible.builtin.command:
     cmd: chmod 700 /home/p/.kube/config
 
+- name: Get ~/.kube/config from local file
+  ansible.builtin.set_fact:
+    kube_config: "{{ lookup('file', '/home/p/.kube/config') }}"
+
+- name: Print ~/.kube/config from local file
+  ansible.builtin.debug:
+    var: kube_config
+
 - name: Delete with rm -rf /home/p/.kube/node1.k8s.local on ansible node
   remote_user: p
   become: no

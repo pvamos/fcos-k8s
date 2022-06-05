@@ -13,5 +13,6 @@
       when: inventory_hostname in groups.master
       # kubeadm join on workers
     - role: kubeadm-join
-      when: inventory_hostname in groups.workers
-
+#      when: inventory_hostname in groups.workers
+    - role: coredns-pods
+      when: inventory_hostname in groups.master

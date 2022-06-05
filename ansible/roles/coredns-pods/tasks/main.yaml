@@ -1,0 +1,57 @@
+---
+# Restart coredns pods if necessary
+
+- name: Test connection to ansible node with ping
+  ansible.builtin.ping:
+  delegate_to: 127.0.0.1
+
+- name: Get coredns pods not in 'Running' state
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.command:
+    cmd: /usr/bin/kubectl get pod -n kube-system -l k8s-app=kube-dns -o jsonpath="{range .items[?(@.status.phase != 'Running')]}{.metadata.name}{'\n'}{end}"
+  register: coredns_notrunning_pods
+
+- name: Print coredns pods not in 'Running' state
+  ansible.builtin.debug:
+    var: coredns_notrunning_pods.stdout_lines
+
+- name: Loop over coredns_pods stdout_lines
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ coredns_notrunning_pods.stdout_lines }}"
+
+- name: Delete coredns pods not in 'Running' state
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.command:
+    cmd: "/usr/bin/kubectl delete pod -n kube-system {{ item }}"
+  loop: "{{ coredns_notrunning_pods.stdout_lines }}"
+
+- name: Check coredns deployment status
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.command:
+    cmd: /usr/bin/kubectl get deployment -n kube-system coredns -o jsonpath="{.status.availableReplicas}"
+  register: coredns_check_output
+  until: coredns_check_output.stdout == "2"
+  ignore_errors: yes
+  retries: 30
+  delay: 2
+
+- name: Get coredns pods
+  remote_user: p
+  become: no
+  delegate_to: 127.0.0.1
+  ansible.builtin.command:
+    cmd: /usr/bin/kubectl get pod -n kube-system -l k8s-app=kube-dns -owide
+  register: coredns_pods
+
+- name: Print coredns pods not in 'Running' state
+  ansible.builtin.debug:
+    var: coredns_pods.stdout_lines
+
+
