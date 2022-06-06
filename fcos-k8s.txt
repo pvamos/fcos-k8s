@@ -187,11 +187,11 @@ butane --pretty ./node4.fcc --output ./node4.ign
 [p@ansible core]$
 
 
-[p@ansible core]$ sha512sum node?.ign
-df024d903b92b96c5afb4ce3c66f1e0d5a9cdf6caee98c47063d9fd24bb60d115208334b4a733d90af57ddb335303d0bdfe9ef0c60aa4aa94483bf80bf439d2f  node1.ign
-33d40b39476600f9015781865553e09c9fe0542ec72297684c1daae259cab08be202acaec6531353c0650a60df704f16a7f4187ec22fa0d6a09064f5109659e5  node2.ign
-4999b6850027407a73b6393ab3e0a6cb0d1068b4d8e5498322b321baa5cd52f6b4e995fd60dc2c17894bb0758ea5cfa8dffdecec9f26c0f6d21d8b4a429bf0c2  node3.ign
-d129827dc1c737362f9647c5c90e9dd26d63fbf75ffb216b1b948a378bfcfe9c5f720cd053652008a55efcdf73fe5f2f924e03631e29a5d14a438a83d3fe997e  node4.ign
+[p@ansible ignition]$ sha512sum node?.ign
+5423de7ba481245fd3b84c8e539835644185f6521eaf9e6be89c8a094c7f96f9357608a509c877437a8418408586c5f2af0704c938cc853fab332d58255e2377  node1.ign
+0cc99fd6ede4d8f738163df72dfee8b40333f5c07bc5fab1316344b90a52a159bc9fae1b60f95c91cc649fa363f94522c9aed899683312e621915d8be7fe6a57  node2.ign
+5ec3e6684a33fa133cb3a21f21ea87918900f9a484bf6dbe0edd34902149398aa120c0c25181fbedc7f0429652d54ba1823eca284b50ea1d4f380d1966696985  node3.ign
+3fe1485c01e2490eb0c1c832bff3e3c872149caa6f96d1edc27ce6b6f275284638e5fbef65f5f1e69c4b29731776cf8cdaf01d6e929b9e82db59e87a50b2409c  node4.ign
 
 
 
@@ -207,14 +207,20 @@ Keyboard interrupt received, exiting.
 [p@telekom core]$
 
 
+ssh-keyscan node1.k8s.local >> ~/.ssh/known_hosts && ssh-keyscan node2.k8s.local >> ~/.ssh/known_hosts && ssh-keyscan node3.k8s.local >> ~/.ssh/known_hosts && ssh-keyscan node4.k8s.local >> ~/.ssh/known_hosts
+ssh-keyscan node1.k8s.local >> ~/.ssh/known_hosts && ssh-keyscan node2.k8s.local >> ~/.ssh/known_hosts && ssh-keyscan node3.k8s.local >> ~/.ssh/known_hosts && ssh-keyscan node4.k8s.local >> ~/.ssh/known_hosts
+cd ~/fcos-k8s/ansible
+ansible all -i hosts -m ping
+
+
 ForcePaste:
 https://store.steampowered.com/app/1264105/Simplode_Suite__Capture_and_Clipboard_Utilities/
 
 
-sudo coreos-installer install /dev/vda --ignition-hash=sha512-df024d903b92b96c5afb4ce3c66f1e0d5a9cdf6caee98c47063d9fd24bb60d115208334b4a733d90af57ddb335303d0bdfe9ef0c60aa4aa94483bf80bf439d2f --ignition-url=http://192.168.1.210:8000/node1.ign
-sudo coreos-installer install /dev/vda --ignition-hash=sha512-33d40b39476600f9015781865553e09c9fe0542ec72297684c1daae259cab08be202acaec6531353c0650a60df704f16a7f4187ec22fa0d6a09064f5109659e5 --ignition-url=http://192.168.1.210:8000/node2.ign
-sudo coreos-installer install /dev/vda --ignition-hash=sha512-4999b6850027407a73b6393ab3e0a6cb0d1068b4d8e5498322b321baa5cd52f6b4e995fd60dc2c17894bb0758ea5cfa8dffdecec9f26c0f6d21d8b4a429bf0c2 --ignition-url=http://192.168.1.210:8000/node3.ign
-sudo coreos-installer install /dev/vda --ignition-hash=sha512-d129827dc1c737362f9647c5c90e9dd26d63fbf75ffb216b1b948a378bfcfe9c5f720cd053652008a55efcdf73fe5f2f924e03631e29a5d14a438a83d3fe997e --ignition-url=http://192.168.1.210:8000/node4.ign
+sudo coreos-installer install /dev/vda --ignition-hash=sha512-5423de7ba481245fd3b84c8e539835644185f6521eaf9e6be89c8a094c7f96f9357608a509c877437a8418408586c5f2af0704c938cc853fab332d58255e2377 --ignition-url=http://192.168.1.210:8000/node1.ign
+sudo coreos-installer install /dev/vda --ignition-hash=sha512-0cc99fd6ede4d8f738163df72dfee8b40333f5c07bc5fab1316344b90a52a159bc9fae1b60f95c91cc649fa363f94522c9aed899683312e621915d8be7fe6a57 --ignition-url=http://192.168.1.210:8000/node2.ign
+sudo coreos-installer install /dev/vda --ignition-hash=sha512-5ec3e6684a33fa133cb3a21f21ea87918900f9a484bf6dbe0edd34902149398aa120c0c25181fbedc7f0429652d54ba1823eca284b50ea1d4f380d1966696985 --ignition-url=http://192.168.1.210:8000/node3.ign
+sudo coreos-installer install /dev/vda --ignition-hash=sha512-3fe1485c01e2490eb0c1c832bff3e3c872149caa6f96d1edc27ce6b6f275284638e5fbef65f5f1e69c4b29731776cf8cdaf01d6e929b9e82db59e87a50b2409c --ignition-url=http://192.168.1.210:8000/node4.ign
 
 
 
