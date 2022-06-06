@@ -31,12 +31,14 @@ storage:
     - path: /etc/sysctl.d/10-disable-ipv6.conf
       contents:
         inline: |
+          # disable IPv6
           net.ipv6.conf.all.disable_ipv6 = 1
           net.ipv6.conf.default.disable_ipv6 = 1
           net.ipv6.conf.enp0s4.disable_ipv6 = 1
     - path: /etc/sysctl.d/99-kubernetes-cri.conf
       contents:
         inline: |
+          # Kernel parameters required by the cri-o container engine.
           net.bridge.bridge-nf-call-iptables  = 1
           net.ipv4.ip_forward                 = 1
           #net.bridge.bridge-nf-call-ip6tables = 1
