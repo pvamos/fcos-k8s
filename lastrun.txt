@@ -1,0 +1,1801 @@
+[p@ansible ansible]$ ansible-playbook -i hosts fcos-k8s.yaml
+
+PLAY [Fedora CoreOS Kubernetes setup with kubeadm] ********************************************************************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************************************************************************************************
+Monday 06 June 2022  15:58:42 +0000 (0:00:00.020)       0:00:00.020 ***********
+ok: [node4.k8s.local]
+ok: [node2.k8s.local]
+ok: [node1.k8s.local]
+ok: [node3.k8s.local]
+
+TASK [remove-python3-for-ansible-service : Test connection with ping] *************************************************************************************************************************************
+Monday 06 June 2022  15:58:45 +0000 (0:00:02.747)       0:00:02.767 ***********
+ok: [node1.k8s.local]
+ok: [node3.k8s.local]
+ok: [node2.k8s.local]
+ok: [node4.k8s.local]
+
+TASK [remove-python3-for-ansible-service : Disable python3-for-ansible.service] ***************************************************************************************************************************
+Monday 06 June 2022  15:58:46 +0000 (0:00:01.156)       0:00:03.924 ***********
+changed: [node1.k8s.local]
+changed: [node4.k8s.local]
+changed: [node2.k8s.local]
+changed: [node3.k8s.local]
+
+TASK [remove-python3-for-ansible-service : Remove file /etc/python3-for-ansible.done] *********************************************************************************************************************
+Monday 06 June 2022  15:58:48 +0000 (0:00:01.834)       0:00:05.759 ***********
+changed: [node3.k8s.local]
+changed: [node2.k8s.local]
+changed: [node1.k8s.local]
+changed: [node4.k8s.local]
+
+TASK [remove-python3-for-ansible-service : Remove file /etc/systemd/system/python3-for-ansible.service] ***************************************************************************************************
+Monday 06 June 2022  15:58:49 +0000 (0:00:01.130)       0:00:06.889 ***********
+changed: [node1.k8s.local]
+changed: [node2.k8s.local]
+changed: [node3.k8s.local]
+changed: [node4.k8s.local]
+
+TASK [remove-python3-for-ansible-service : Force systemd to reread configs] *******************************************************************************************************************************
+Monday 06 June 2022  15:58:50 +0000 (0:00:00.924)       0:00:07.814 ***********
+ok: [node1.k8s.local]
+ok: [node4.k8s.local]
+ok: [node2.k8s.local]
+ok: [node3.k8s.local]
+
+TASK [remove-python3-for-ansible-service : Reboot] ********************************************************************************************************************************************************
+Monday 06 June 2022  15:58:52 +0000 (0:00:01.617)       0:00:09.431 ***********
+changed: [node2.k8s.local]
+changed: [node1.k8s.local]
+changed: [node4.k8s.local]
+changed: [node3.k8s.local]
+
+TASK [remove-python3-for-ansible-service : Test connection with ping] *************************************************************************************************************************************
+Monday 06 June 2022  15:59:08 +0000 (0:00:15.897)       0:00:25.329 ***********
+ok: [node1.k8s.local]
+ok: [node2.k8s.local]
+ok: [node3.k8s.local]
+ok: [node4.k8s.local]
+
+TASK [fcos-k8s-sh : Test connection with ping] ************************************************************************************************************************************************************
+Monday 06 June 2022  15:59:09 +0000 (0:00:01.076)       0:00:26.406 ***********
+ok: [node2.k8s.local]
+ok: [node1.k8s.local]
+ok: [node3.k8s.local]
+ok: [node4.k8s.local]
+
+TASK [fcos-k8s-sh : Copy fcos-k8s.sh] *********************************************************************************************************************************************************************
+Monday 06 June 2022  15:59:10 +0000 (0:00:00.855)       0:00:27.261 ***********
+changed: [node2.k8s.local]
+changed: [node3.k8s.local]
+changed: [node4.k8s.local]
+changed: [node1.k8s.local]
+
+TASK [fcos-k8s-sh : Execute fcos-k8s.sh] ******************************************************************************************************************************************************************
+Monday 06 June 2022  15:59:12 +0000 (0:00:02.092)       0:00:29.354 ***********
+changed: [node3.k8s.local]
+changed: [node1.k8s.local]
+changed: [node4.k8s.local]
+changed: [node2.k8s.local]
+
+TASK [fcos-k8s-sh : Print fcos-k8s.sh output] *************************************************************************************************************************************************************
+Monday 06 June 2022  16:01:46 +0000 (0:02:34.398)       0:03:03.753 ***********
+ok: [node1.k8s.local] => {
+    "fcos_k8s_output.stdout_lines": [
+        "Enabled rpm-md repositories: fedora-cisco-openh264 fedora-modular updates-modular fedora updates kubernetes devel_kubic_libcontainers_stable devel_kubic_libcontainers_stable_cri-o_1.22 updates-archive",
+        "⠁ Updating metadata for 'updates'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'updates'  48% [█████████░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Updating metadata for 'updates' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'updates'... done",
+        "⠁ Updating metadata for 'kubernetes'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'kubernetes'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'kubernetes' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'kubernetes'... done",
+        "⠁ Updating metadata for 'devel_kubic_libcontainers_stable'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'devel_kubic_libcontainers_stable'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'devel_kubic_libcontainers_stable' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'devel_kubic_libcontainers_stable'... done",
+        "⠁ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'... done",
+        "⠁ Importing rpm-md   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing rpm-md  44% [████████░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing rpm-md  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Importing rpm-md  66% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Importing rpm-md  77% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Importing rpm-md  88% [█████████████████░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Importing rpm-md 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting rpm-md... done",
+        "rpm-md repo 'fedora-cisco-openh264' (cached); generated: 2022-04-07T16:52:38Z solvables: 4",
+        "rpm-md repo 'fedora-modular' (cached); generated: 2022-05-04T21:12:01Z solvables: 825",
+        "rpm-md repo 'updates-modular' (cached); generated: 2022-06-03T03:02:32Z solvables: 1141",
+        "rpm-md repo 'fedora' (cached); generated: 2022-05-04T21:16:11Z solvables: 67992",
+        "rpm-md repo 'updates'; generated: 2022-06-06T02:03:36Z solvables: 10478",
+        "rpm-md repo 'kubernetes'; generated: (invalid timestamp) solvables: 810",
+        "rpm-md repo 'devel_kubic_libcontainers_stable'; generated: 2022-05-27T17:45:57Z solvables: 19",
+        "rpm-md repo 'devel_kubic_libcontainers_stable_cri-o_1.22'; generated: 2022-05-20T09:23:25Z solvables: 9",
+        "rpm-md repo 'updates-archive' (cached); generated: 2022-06-06T02:26:17Z solvables: 12697",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AChecking out tree 096cc2b... done",
+        "Enabled rpm-md repositories: fedora-cisco-openh264 fedora-modular updates-modular fedora updates kubernetes devel_kubic_libcontainers_stable devel_kubic_libcontainers_stable_cri-o_1.22 updates-archive",
+        "⠁ Importing rpm-md   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing rpm-md  44% [████████░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing rpm-md  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Importing rpm-md 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting rpm-md... done",
+        "rpm-md repo 'fedora-cisco-openh264' (cached); generated: 2022-04-07T16:52:38Z solvables: 4",
+        "rpm-md repo 'fedora-modular' (cached); generated: 2022-05-04T21:12:01Z solvables: 825",
+        "rpm-md repo 'updates-modular' (cached); generated: 2022-06-03T03:02:32Z solvables: 1153",
+        "rpm-md repo 'fedora' (cached); generated: 2022-05-04T21:16:11Z solvables: 67992",
+        "rpm-md repo 'updates' (cached); generated: 2022-06-06T02:03:36Z solvables: 12077",
+        "rpm-md repo 'kubernetes' (cached); generated: (invalid timestamp) solvables: 810",
+        "rpm-md repo 'devel_kubic_libcontainers_stable' (cached); generated: 2022-05-27T17:45:57Z solvables: 19",
+        "rpm-md repo 'devel_kubic_libcontainers_stable_cri-o_1.22' (cached); generated: 2022-05-20T09:23:25Z solvables: 9",
+        "rpm-md repo 'updates-archive' (cached); generated: 2022-06-06T02:26:17Z solvables: 12697",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AResolving dependencies... done",
+        "Will download: 9 packages (91.6 MB)",
+        "⠁ Downloading from 'fedora'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'fedora'   5% [█░░░░░░░░░░░░░░░░░░░] (9s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'fedora'  26% [█████░░░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'fedora'  77% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'fedora'... done",
+        "⠁ Downloading from 'kubernetes'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'kubernetes'   1% [░░░░░░░░░░░░░░░░░░░░] (40s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Downloading from 'kubernetes'   8% [█░░░░░░░░░░░░░░░░░░░] (14s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'kubernetes'  18% [███░░░░░░░░░░░░░░░░░] (5s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'kubernetes'  29% [█████░░░░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'kubernetes'  43% [████████░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'kubernetes'  47% [█████████░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Downloading from 'kubernetes'  60% [████████████░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'kubernetes'  64% [████████████░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠋ Downloading from 'kubernetes'  85% [█████████████████░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'kubernetes'  98% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'kubernetes'... done",
+        "⠁ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   1% [░░░░░░░░░░░░░░░░░░░░] (1m) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   2% [░░░░░░░░░░░░░░░░░░░░] (1m) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   3% [░░░░░░░░░░░░░░░░░░░░] (1m) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   6% [█░░░░░░░░░░░░░░░░░░░] (52s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  11% [██░░░░░░░░░░░░░░░░░░] (35s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  18% [███░░░░░░░░░░░░░░░░░] (17s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠈ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  26% [█████░░░░░░░░░░░░░░░] (8s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  34% [██████░░░░░░░░░░░░░░] (5s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  39% [███████░░░░░░░░░░░░░] (4s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠦ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  45% [█████████░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  53% [██████████░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  59% [███████████░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  67% [█████████████░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  73% [██████████████░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  82% [████████████████░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  88% [█████████████████░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'... done",
+        "⠁ Importing packages   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing packages  33% [██████░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing packages  55% [███████████░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing packages  66% [█████████████░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Importing packages  77% [███████████████░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Importing packages  88% [█████████████████░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Importing packages 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting packages... done",
+        "⠁ Checking out packages   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Checking out packages  52% [██████████░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AChecking out packages... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning pre scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Running post scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Running post scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning post scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning posttrans scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AWriting rpmdb... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AWriting OSTree commit... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AStaging deployment... done",
+        "Added:",
+        "  conntrack-tools-1.4.6-2.fc36.x86_64",
+        "  cri-o-1.22.4-4.2.el7.x86_64",
+        "  cri-tools-1.24.0-0.x86_64",
+        "  kubeadm-1.24.1-0.x86_64",
+        "  kubectl-1.24.1-0.x86_64",
+        "  kubelet-1.24.1-0.x86_64",
+        "  libnetfilter_cthelper-1.0.0-21.fc36.x86_64",
+        "  libnetfilter_cttimeout-1.0.0-19.fc36.x86_64",
+        "  libnetfilter_queue-1.0.5-2.fc36.x86_64",
+        "Changes queued for next boot. Run \"systemctl reboot\" to start a reboot"
+    ]
+}
+ok: [node2.k8s.local] => {
+    "fcos_k8s_output.stdout_lines": [
+        "Enabled rpm-md repositories: fedora-cisco-openh264 fedora-modular updates-modular fedora updates kubernetes devel_kubic_libcontainers_stable devel_kubic_libcontainers_stable_cri-o_1.22 updates-archive",
+        "⠁ Updating metadata for 'updates'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'updates'  48% [█████████░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Updating metadata for 'updates' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'updates'... done",
+        "⠁ Updating metadata for 'kubernetes'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'kubernetes'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'kubernetes' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'kubernetes'... done",
+        "⠁ Updating metadata for 'devel_kubic_libcontainers_stable'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'devel_kubic_libcontainers_stable'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'devel_kubic_libcontainers_stable' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'devel_kubic_libcontainers_stable'... done",
+        "⠁ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'... done",
+        "⠁ Importing rpm-md   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing rpm-md  44% [████████░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing rpm-md  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Importing rpm-md  66% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Importing rpm-md  77% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Importing rpm-md  88% [█████████████████░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Importing rpm-md 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting rpm-md... done",
+        "rpm-md repo 'fedora-cisco-openh264' (cached); generated: 2022-04-07T16:52:38Z solvables: 4",
+        "rpm-md repo 'fedora-modular' (cached); generated: 2022-05-04T21:12:01Z solvables: 825",
+        "rpm-md repo 'updates-modular' (cached); generated: 2022-06-03T03:02:32Z solvables: 1141",
+        "rpm-md repo 'fedora' (cached); generated: 2022-05-04T21:16:11Z solvables: 67992",
+        "rpm-md repo 'updates'; generated: 2022-06-06T02:03:36Z solvables: 10478",
+        "rpm-md repo 'kubernetes'; generated: (invalid timestamp) solvables: 810",
+        "rpm-md repo 'devel_kubic_libcontainers_stable'; generated: 2022-05-27T17:45:57Z solvables: 19",
+        "rpm-md repo 'devel_kubic_libcontainers_stable_cri-o_1.22'; generated: 2022-05-20T09:23:25Z solvables: 9",
+        "rpm-md repo 'updates-archive' (cached); generated: 2022-06-06T02:26:17Z solvables: 12697",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AChecking out tree 096cc2b... done",
+        "Enabled rpm-md repositories: fedora-cisco-openh264 fedora-modular updates-modular fedora updates kubernetes devel_kubic_libcontainers_stable devel_kubic_libcontainers_stable_cri-o_1.22 updates-archive",
+        "⠁ Importing rpm-md   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing rpm-md  44% [████████░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing rpm-md  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Importing rpm-md 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting rpm-md... done",
+        "rpm-md repo 'fedora-cisco-openh264' (cached); generated: 2022-04-07T16:52:38Z solvables: 4",
+        "rpm-md repo 'fedora-modular' (cached); generated: 2022-05-04T21:12:01Z solvables: 825",
+        "rpm-md repo 'updates-modular' (cached); generated: 2022-06-03T03:02:32Z solvables: 1153",
+        "rpm-md repo 'fedora' (cached); generated: 2022-05-04T21:16:11Z solvables: 67992",
+        "rpm-md repo 'updates' (cached); generated: 2022-06-06T02:03:36Z solvables: 12077",
+        "rpm-md repo 'kubernetes' (cached); generated: (invalid timestamp) solvables: 810",
+        "rpm-md repo 'devel_kubic_libcontainers_stable' (cached); generated: 2022-05-27T17:45:57Z solvables: 19",
+        "rpm-md repo 'devel_kubic_libcontainers_stable_cri-o_1.22' (cached); generated: 2022-05-20T09:23:25Z solvables: 9",
+        "rpm-md repo 'updates-archive' (cached); generated: 2022-06-06T02:26:17Z solvables: 12697",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AResolving dependencies... done",
+        "Will download: 9 packages (91.6 MB)",
+        "⠁ Downloading from 'fedora'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'fedora'   4% [░░░░░░░░░░░░░░░░░░░░] (7s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'fedora'  21% [████░░░░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'fedora'  25% [█████░░░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'fedora'  27% [█████░░░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'fedora'  29% [█████░░░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠖ Downloading from 'fedora'  35% [███████░░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'fedora'  42% [████████░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠋ Downloading from 'fedora'  44% [████████░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠈ Downloading from 'fedora'  47% [█████████░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠈ Downloading from 'fedora'  48% [█████████░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠁ Downloading from 'fedora'  50% [██████████░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'fedora'  53% [██████████░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Downloading from 'fedora'  55% [███████████░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'fedora'  58% [███████████░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Downloading from 'fedora'  61% [████████████░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'fedora'  65% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'fedora'  68% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'fedora'  73% [██████████████░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠐ Downloading from 'fedora'  75% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠓ Downloading from 'fedora'  77% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠈ Downloading from 'fedora'  80% [████████████████░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'fedora'  84% [████████████████░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Downloading from 'fedora'  88% [█████████████████░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'fedora'  90% [██████████████████░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'fedora'  92% [██████████████████░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'fedora'  96% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'fedora'  98% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'fedora' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'fedora'... done",
+        "⠁ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   1% [░░░░░░░░░░░░░░░░░░░░] (1m) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   5% [█░░░░░░░░░░░░░░░░░░░] (35s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠦ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  16% [███░░░░░░░░░░░░░░░░░] (11s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  29% [█████░░░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  43% [████████░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠁ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  57% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  71% [██████████████░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠁ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  85% [█████████████████░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  99% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'... done",
+        "⠁ Downloading from 'kubernetes'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'kubernetes'   1% [░░░░░░░░░░░░░░░░░░░░] (42s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'kubernetes'  13% [██░░░░░░░░░░░░░░░░░░] (10s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'kubernetes'  29% [█████░░░░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠦ Downloading from 'kubernetes'  45% [█████████░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'kubernetes'  61% [████████████░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'kubernetes'  64% [████████████░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Downloading from 'kubernetes'  71% [██████████████░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠐ Downloading from 'kubernetes'  83% [████████████████░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠁ Downloading from 'kubernetes'  91% [██████████████████░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'kubernetes'  92% [██████████████████░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'kubernetes'... done",
+        "⠁ Importing packages   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Importing packages  11% [██░░░░░░░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing packages  33% [██████░░░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing packages  44% [████████░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing packages  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing packages  66% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Importing packages  88% [█████████████████░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Importing packages 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting packages... done",
+        "⠁ Checking out packages   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Checking out packages  52% [██████████░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AChecking out packages... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning pre scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Running post scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Running post scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning post scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning posttrans scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AWriting rpmdb... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AWriting OSTree commit... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AStaging deployment... done",
+        "Added:",
+        "  conntrack-tools-1.4.6-2.fc36.x86_64",
+        "  cri-o-1.22.4-4.2.el7.x86_64",
+        "  cri-tools-1.24.0-0.x86_64",
+        "  kubeadm-1.24.1-0.x86_64",
+        "  kubectl-1.24.1-0.x86_64",
+        "  kubelet-1.24.1-0.x86_64",
+        "  libnetfilter_cthelper-1.0.0-21.fc36.x86_64",
+        "  libnetfilter_cttimeout-1.0.0-19.fc36.x86_64",
+        "  libnetfilter_queue-1.0.5-2.fc36.x86_64",
+        "Changes queued for next boot. Run \"systemctl reboot\" to start a reboot"
+    ]
+}
+ok: [node3.k8s.local] => {
+    "fcos_k8s_output.stdout_lines": [
+        "Enabled rpm-md repositories: fedora-cisco-openh264 fedora-modular updates-modular fedora updates kubernetes devel_kubic_libcontainers_stable devel_kubic_libcontainers_stable_cri-o_1.22 updates-archive",
+        "⠁ Updating metadata for 'updates'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'updates'  48% [█████████░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Updating metadata for 'updates' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'updates'... done",
+        "⠁ Updating metadata for 'kubernetes'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'kubernetes'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'kubernetes' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'kubernetes'... done",
+        "⠁ Updating metadata for 'devel_kubic_libcontainers_stable'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'devel_kubic_libcontainers_stable'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'devel_kubic_libcontainers_stable' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'devel_kubic_libcontainers_stable'... done",
+        "⠁ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'... done",
+        "⠁ Importing rpm-md   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing rpm-md  44% [████████░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing rpm-md  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Importing rpm-md  66% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Importing rpm-md  77% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Importing rpm-md  88% [█████████████████░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Importing rpm-md 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting rpm-md... done",
+        "rpm-md repo 'fedora-cisco-openh264' (cached); generated: 2022-04-07T16:52:38Z solvables: 4",
+        "rpm-md repo 'fedora-modular' (cached); generated: 2022-05-04T21:12:01Z solvables: 825",
+        "rpm-md repo 'updates-modular' (cached); generated: 2022-06-03T03:02:32Z solvables: 1141",
+        "rpm-md repo 'fedora' (cached); generated: 2022-05-04T21:16:11Z solvables: 67992",
+        "rpm-md repo 'updates'; generated: 2022-06-06T02:03:36Z solvables: 10478",
+        "rpm-md repo 'kubernetes'; generated: (invalid timestamp) solvables: 810",
+        "rpm-md repo 'devel_kubic_libcontainers_stable'; generated: 2022-05-27T17:45:57Z solvables: 19",
+        "rpm-md repo 'devel_kubic_libcontainers_stable_cri-o_1.22'; generated: 2022-05-20T09:23:25Z solvables: 9",
+        "rpm-md repo 'updates-archive' (cached); generated: 2022-06-06T02:26:17Z solvables: 12697",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AChecking out tree 096cc2b... done",
+        "Enabled rpm-md repositories: fedora-cisco-openh264 fedora-modular updates-modular fedora updates kubernetes devel_kubic_libcontainers_stable devel_kubic_libcontainers_stable_cri-o_1.22 updates-archive",
+        "⠁ Importing rpm-md   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing rpm-md  44% [████████░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing rpm-md  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Importing rpm-md 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting rpm-md... done",
+        "rpm-md repo 'fedora-cisco-openh264' (cached); generated: 2022-04-07T16:52:38Z solvables: 4",
+        "rpm-md repo 'fedora-modular' (cached); generated: 2022-05-04T21:12:01Z solvables: 825",
+        "rpm-md repo 'updates-modular' (cached); generated: 2022-06-03T03:02:32Z solvables: 1153",
+        "rpm-md repo 'fedora' (cached); generated: 2022-05-04T21:16:11Z solvables: 67992",
+        "rpm-md repo 'updates' (cached); generated: 2022-06-06T02:03:36Z solvables: 12077",
+        "rpm-md repo 'kubernetes' (cached); generated: (invalid timestamp) solvables: 810",
+        "rpm-md repo 'devel_kubic_libcontainers_stable' (cached); generated: 2022-05-27T17:45:57Z solvables: 19",
+        "rpm-md repo 'devel_kubic_libcontainers_stable_cri-o_1.22' (cached); generated: 2022-05-20T09:23:25Z solvables: 9",
+        "rpm-md repo 'updates-archive' (cached); generated: 2022-06-06T02:26:17Z solvables: 12697",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AResolving dependencies... done",
+        "Will download: 9 packages (91.6 MB)",
+        "⠁ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   1% [░░░░░░░░░░░░░░░░░░░░] (1m) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   3% [░░░░░░░░░░░░░░░░░░░░] (51s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   9% [█░░░░░░░░░░░░░░░░░░░] (26s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  10% [██░░░░░░░░░░░░░░░░░░] (24s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  15% [███░░░░░░░░░░░░░░░░░] (17s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠈ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  26% [█████░░░░░░░░░░░░░░░] (5s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  38% [███████░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠐ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  48% [█████████░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  60% [████████████░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  71% [██████████████░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠈ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  83% [████████████████░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  93% [██████████████████░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'... done",
+        "⠁ Downloading from 'fedora'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'fedora'   4% [░░░░░░░░░░░░░░░░░░░░] (9s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'fedora'  31% [██████░░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'fedora'... done",
+        "⠁ Downloading from 'kubernetes'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'kubernetes'   1% [░░░░░░░░░░░░░░░░░░░░] (41s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'kubernetes'  14% [██░░░░░░░░░░░░░░░░░░] (9s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'kubernetes'  30% [██████░░░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'kubernetes'  40% [████████░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'kubernetes'  47% [█████████░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'kubernetes'  53% [██████████░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'kubernetes'  58% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'kubernetes'  64% [████████████░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠖ Downloading from 'kubernetes'  75% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠈ Downloading from 'kubernetes'  84% [████████████████░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'kubernetes'  91% [██████████████████░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'kubernetes'  93% [██████████████████░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'kubernetes'... done",
+        "⠁ Importing packages   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Importing packages  11% [██░░░░░░░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing packages  33% [██████░░░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing packages  44% [████████░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing packages  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing packages  66% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Importing packages  88% [█████████████████░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Importing packages 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting packages... done",
+        "⠁ Checking out packages   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Checking out packages  52% [██████████░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AChecking out packages... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning pre scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Running post scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Running post scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning post scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning posttrans scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AWriting rpmdb... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AWriting OSTree commit... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AStaging deployment... done",
+        "Added:",
+        "  conntrack-tools-1.4.6-2.fc36.x86_64",
+        "  cri-o-1.22.4-4.2.el7.x86_64",
+        "  cri-tools-1.24.0-0.x86_64",
+        "  kubeadm-1.24.1-0.x86_64",
+        "  kubectl-1.24.1-0.x86_64",
+        "  kubelet-1.24.1-0.x86_64",
+        "  libnetfilter_cthelper-1.0.0-21.fc36.x86_64",
+        "  libnetfilter_cttimeout-1.0.0-19.fc36.x86_64",
+        "  libnetfilter_queue-1.0.5-2.fc36.x86_64",
+        "Changes queued for next boot. Run \"systemctl reboot\" to start a reboot"
+    ]
+}
+ok: [node4.k8s.local] => {
+    "fcos_k8s_output.stdout_lines": [
+        "Enabled rpm-md repositories: fedora-cisco-openh264 fedora-modular updates-modular fedora updates kubernetes devel_kubic_libcontainers_stable devel_kubic_libcontainers_stable_cri-o_1.22 updates-archive",
+        "⠁ Updating metadata for 'updates'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'updates'  48% [█████████░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Updating metadata for 'updates' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'updates'... done",
+        "⠁ Updating metadata for 'kubernetes'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'kubernetes'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'kubernetes' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'kubernetes'... done",
+        "⠁ Updating metadata for 'devel_kubic_libcontainers_stable'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'devel_kubic_libcontainers_stable'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'devel_kubic_libcontainers_stable' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'devel_kubic_libcontainers_stable'... done",
+        "⠁ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'  95% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Updating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22' 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AUpdating metadata for 'devel_kubic_libcontainers_stable_cri-o_1.22'... done",
+        "⠁ Importing rpm-md   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing rpm-md  44% [████████░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing rpm-md  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Importing rpm-md  66% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Importing rpm-md  77% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Importing rpm-md  88% [█████████████████░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Importing rpm-md 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting rpm-md... done",
+        "rpm-md repo 'fedora-cisco-openh264' (cached); generated: 2022-04-07T16:52:38Z solvables: 4",
+        "rpm-md repo 'fedora-modular' (cached); generated: 2022-05-04T21:12:01Z solvables: 825",
+        "rpm-md repo 'updates-modular' (cached); generated: 2022-06-03T03:02:32Z solvables: 1141",
+        "rpm-md repo 'fedora' (cached); generated: 2022-05-04T21:16:11Z solvables: 67992",
+        "rpm-md repo 'updates'; generated: 2022-06-06T02:03:36Z solvables: 10478",
+        "rpm-md repo 'kubernetes'; generated: (invalid timestamp) solvables: 810",
+        "rpm-md repo 'devel_kubic_libcontainers_stable'; generated: 2022-05-27T17:45:57Z solvables: 19",
+        "rpm-md repo 'devel_kubic_libcontainers_stable_cri-o_1.22'; generated: 2022-05-20T09:23:25Z solvables: 9",
+        "rpm-md repo 'updates-archive' (cached); generated: 2022-06-06T02:26:17Z solvables: 12697",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Checking out tree 096cc2b... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AChecking out tree 096cc2b... done",
+        "Enabled rpm-md repositories: fedora-cisco-openh264 fedora-modular updates-modular fedora updates kubernetes devel_kubic_libcontainers_stable devel_kubic_libcontainers_stable_cri-o_1.22 updates-archive",
+        "⠁ Importing rpm-md   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Importing rpm-md  11% [██░░░░░░░░░░░░░░░░░░] (4s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing rpm-md  44% [████████░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing rpm-md  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Importing rpm-md 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting rpm-md... done",
+        "rpm-md repo 'fedora-cisco-openh264' (cached); generated: 2022-04-07T16:52:38Z solvables: 4",
+        "rpm-md repo 'fedora-modular' (cached); generated: 2022-05-04T21:12:01Z solvables: 825",
+        "rpm-md repo 'updates-modular' (cached); generated: 2022-06-03T03:02:32Z solvables: 1153",
+        "rpm-md repo 'fedora' (cached); generated: 2022-05-04T21:16:11Z solvables: 67992",
+        "rpm-md repo 'updates' (cached); generated: 2022-06-06T02:03:36Z solvables: 12077",
+        "rpm-md repo 'kubernetes' (cached); generated: (invalid timestamp) solvables: 810",
+        "rpm-md repo 'devel_kubic_libcontainers_stable' (cached); generated: 2022-05-27T17:45:57Z solvables: 19",
+        "rpm-md repo 'devel_kubic_libcontainers_stable_cri-o_1.22' (cached); generated: 2022-05-20T09:23:25Z solvables: 9",
+        "rpm-md repo 'updates-archive' (cached); generated: 2022-06-06T02:26:17Z solvables: 12697",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AResolving dependencies... done",
+        "Will download: 9 packages (91.6 MB)",
+        "⠁ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   1% [░░░░░░░░░░░░░░░░░░░░] (1m) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'   5% [█░░░░░░░░░░░░░░░░░░░] (32s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠖ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  17% [███░░░░░░░░░░░░░░░░░] (10s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  32% [██████░░░░░░░░░░░░░░] (3s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠦ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  45% [█████████░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  59% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  73% [██████████████░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Downloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'  87% [█████████████████░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'devel_kubic_libcontainers_stable_cri-o_1.22'... done",
+        "⠁ Downloading from 'fedora'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'fedora'   5% [█░░░░░░░░░░░░░░░░░░░] (10s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Downloading from 'fedora'  54% [██████████░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'fedora'... done",
+        "⠁ Downloading from 'kubernetes'   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'kubernetes'   1% [░░░░░░░░░░░░░░░░░░░░] (38s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠠ Downloading from 'kubernetes'  13% [██░░░░░░░░░░░░░░░░░░] (9s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Downloading from 'kubernetes'  30% [██████░░░░░░░░░░░░░░] (2s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠖ Downloading from 'kubernetes'  46% [█████████░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠁ Downloading from 'kubernetes'  57% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Downloading from 'kubernetes'  71% [██████████████░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠈ Downloading from 'kubernetes'  85% [█████████████████░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Downloading from 'kubernetes'  96% [███████████████████░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ADownloading from 'kubernetes'... done",
+        "⠁ Importing packages   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Importing packages  11% [██░░░░░░░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing packages  33% [██████░░░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing packages  44% [████████░░░░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Importing packages  55% [███████████░░░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Importing packages  66% [█████████████░░░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Importing packages  77% [███████████████░░░░░] (1s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Importing packages  88% [█████████████████░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Importing packages 100% [████████████████████] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AImporting packages... done",
+        "⠁ Checking out packages   0% [░░░░░░░░░░░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Checking out packages  52% [██████████░░░░░░░░░░] (0s) ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AChecking out packages... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning pre scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Running post scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Running post scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning post scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠄ Running posttrans scripts... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1ARunning posttrans scripts... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠲ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠴ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠤ Writing rpmdb... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AWriting rpmdb... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Writing OSTree commit... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AWriting OSTree commit... done",
+        "⠁  ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠉ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠙ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠚ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠂ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1A⠒ Staging deployment... ",
+        "\u001b[1A",
+        "\u001b[2K\u001b[1B\u001b[1AStaging deployment... done",
+        "Added:",
+        "  conntrack-tools-1.4.6-2.fc36.x86_64",
+        "  cri-o-1.22.4-4.2.el7.x86_64",
+        "  cri-tools-1.24.0-0.x86_64",
+        "  kubeadm-1.24.1-0.x86_64",
+        "  kubectl-1.24.1-0.x86_64",
+        "  kubelet-1.24.1-0.x86_64",
+        "  libnetfilter_cthelper-1.0.0-21.fc36.x86_64",
+        "  libnetfilter_cttimeout-1.0.0-19.fc36.x86_64",
+        "  libnetfilter_queue-1.0.5-2.fc36.x86_64",
+        "Changes queued for next boot. Run \"systemctl reboot\" to start a reboot"
+    ]
+}
+
+TASK [fcos-k8s-sh : Reboot] *******************************************************************************************************************************************************************************
+Monday 06 June 2022  16:01:46 +0000 (0:00:00.130)       0:03:03.883 ***********
+changed: [node4.k8s.local]
+changed: [node1.k8s.local]
+changed: [node2.k8s.local]
+changed: [node3.k8s.local]
+
+TASK [fcos-k8s-sh : Test connection with ping] ************************************************************************************************************************************************************
+Monday 06 June 2022  16:02:11 +0000 (0:00:25.119)       0:03:29.003 ***********
+ok: [node1.k8s.local]
+ok: [node4.k8s.local]
+ok: [node2.k8s.local]
+ok: [node3.k8s.local]
+
+TASK [kubeadm-init : Test connection with ping] ***********************************************************************************************************************************************************
+Monday 06 June 2022  16:02:12 +0000 (0:00:01.096)       0:03:30.099 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+ok: [node1.k8s.local]
+
+TASK [kubeadm-init : Copy clusterconfig.yaml] *************************************************************************************************************************************************************
+Monday 06 June 2022  16:02:13 +0000 (0:00:00.690)       0:03:30.790 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local]
+
+TASK [kubeadm-init : Execute kubeadm init] ****************************************************************************************************************************************************************
+Monday 06 June 2022  16:02:14 +0000 (0:00:01.206)       0:03:31.997 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local]
+
+TASK [kubeadm-init : Print kubeadm init output] ***********************************************************************************************************************************************************
+Monday 06 June 2022  16:03:19 +0000 (0:01:04.656)       0:04:36.654 ***********
+ok: [node1.k8s.local] => {
+    "kubeadm_init_output.stdout_lines": [
+        "W0606 16:02:14.143276    1663 initconfiguration.go:120] Usage of CRI endpoints without URL scheme is deprecated and can cause kubelet errors in the future. Automatically prepending scheme \"unix\" to the \"criSocket\" with value \"/var/run/crio/crio.sock\". Please update your configuration!",
+        "[init] Using Kubernetes version: v1.24.1",
+        "[preflight] Running pre-flight checks",
+        "\t[WARNING SystemVerification]: missing optional cgroups: blkio",
+        "[preflight] Pulling images required for setting up a Kubernetes cluster",
+        "[preflight] This might take a minute or two, depending on the speed of your internet connection",
+        "[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'",
+        "[certs] Using certificateDir folder \"/etc/kubernetes/pki\"",
+        "[certs] Generating \"ca\" certificate and key",
+        "[certs] Generating \"apiserver\" certificate and key",
+        "[certs] apiserver serving cert is signed for DNS names [kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local node1.k8s.local] and IPs [10.96.0.1 192.168.1.201]",
+        "[certs] Generating \"apiserver-kubelet-client\" certificate and key",
+        "[certs] Generating \"front-proxy-ca\" certificate and key",
+        "[certs] Generating \"front-proxy-client\" certificate and key",
+        "[certs] Generating \"etcd/ca\" certificate and key",
+        "[certs] Generating \"etcd/server\" certificate and key",
+        "[certs] etcd/server serving cert is signed for DNS names [localhost node1.k8s.local] and IPs [192.168.1.201 127.0.0.1 ::1]",
+        "[certs] Generating \"etcd/peer\" certificate and key",
+        "[certs] etcd/peer serving cert is signed for DNS names [localhost node1.k8s.local] and IPs [192.168.1.201 127.0.0.1 ::1]",
+        "[certs] Generating \"etcd/healthcheck-client\" certificate and key",
+        "[certs] Generating \"apiserver-etcd-client\" certificate and key",
+        "[certs] Generating \"sa\" key and public key",
+        "[kubeconfig] Using kubeconfig folder \"/etc/kubernetes\"",
+        "[kubeconfig] Writing \"admin.conf\" kubeconfig file",
+        "[kubeconfig] Writing \"kubelet.conf\" kubeconfig file",
+        "[kubeconfig] Writing \"controller-manager.conf\" kubeconfig file",
+        "[kubeconfig] Writing \"scheduler.conf\" kubeconfig file",
+        "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+        "[kubelet-start] Starting the kubelet",
+        "[control-plane] Using manifest folder \"/etc/kubernetes/manifests\"",
+        "[control-plane] Creating static Pod manifest for \"kube-apiserver\"",
+        "[control-plane] Creating static Pod manifest for \"kube-controller-manager\"",
+        "[control-plane] Creating static Pod manifest for \"kube-scheduler\"",
+        "[etcd] Creating static Pod manifest for local etcd in \"/etc/kubernetes/manifests\"",
+        "[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory \"/etc/kubernetes/manifests\". This can take up to 4m0s",
+        "[apiclient] All control plane components are healthy after 19.504428 seconds",
+        "[upload-config] Storing the configuration used in ConfigMap \"kubeadm-config\" in the \"kube-system\" Namespace",
+        "[kubelet] Creating a ConfigMap \"kubelet-config\" in namespace kube-system with the configuration for the kubelets in the cluster",
+        "[upload-certs] Skipping phase. Please see --upload-certs",
+        "[mark-control-plane] Marking the node node1.k8s.local as control-plane by adding the labels: [node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]",
+        "[mark-control-plane] Marking the node node1.k8s.local as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule node-role.kubernetes.io/control-plane:NoSchedule]",
+        "[bootstrap-token] Using token: gqunhc.tb72vopv4xg5yudw",
+        "[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles",
+        "[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to get nodes",
+        "[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials",
+        "[bootstrap-token] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token",
+        "[bootstrap-token] Configured RBAC rules to allow certificate rotation for all node client certificates in the cluster",
+        "[bootstrap-token] Creating the \"cluster-info\" ConfigMap in the \"kube-public\" namespace",
+        "[kubelet-finalize] Updating \"/etc/kubernetes/kubelet.conf\" to point to a rotatable kubelet client certificate and key",
+        "[addons] Applied essential addon: CoreDNS",
+        "[addons] Applied essential addon: kube-proxy",
+        "",
+        "Your Kubernetes control-plane has initialized successfully!",
+        "",
+        "To start using your cluster, you need to run the following as a regular user:",
+        "",
+        "  mkdir -p $HOME/.kube",
+        "  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config",
+        "  sudo chown $(id -u):$(id -g) $HOME/.kube/config",
+        "",
+        "Alternatively, if you are the root user, you can run:",
+        "",
+        "  export KUBECONFIG=/etc/kubernetes/admin.conf",
+        "",
+        "You should now deploy a pod network to the cluster.",
+        "Run \"kubectl apply -f [podnetwork].yaml\" with one of the options listed at:",
+        "  https://kubernetes.io/docs/concepts/cluster-administration/addons/",
+        "",
+        "Then you can join any number of worker nodes by running the following on each as root:",
+        "",
+        "kubeadm join 192.168.1.201:6443 --token gqunhc.tb72vopv4xg5yudw \\",
+        "\t--discovery-token-ca-cert-hash sha256:3dd6efd1215e39b5c842d0caedbd49773029304b8665c5b07dfa8e6b6988000f "
+    ]
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [kubeadm-init : Get kubeadm join command with tokens] ************************************************************************************************************************************************
+Monday 06 June 2022  16:03:19 +0000 (0:00:00.102)       0:04:36.756 ***********
+skipping: [node2.k8s.local]
+ok: [node1.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [kubeadm-init : Print kubeadm join command with tokens] **********************************************************************************************************************************************
+Monday 06 June 2022  16:03:19 +0000 (0:00:00.108)       0:04:36.865 ***********
+ok: [node1.k8s.local] => {
+    "kubeadm_join_command": "kubeadm join 192.168.1.201:6443 --token gqunhc.tb72vopv4xg5yudw --discovery-token-ca-cert-hash sha256:3dd6efd1215e39b5c842d0caedbd49773029304b8665c5b07dfa8e6b6988000f"
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [kubeadm-init : Create /home/p/fcos-k8s/kubeadm-join-command.sh file on ansible node] ****************************************************************************************************************
+Monday 06 June 2022  16:03:19 +0000 (0:00:00.097)       0:04:36.963 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [kubeadm-init : Create /home/p/.kube directory on ansible node] **************************************************************************************************************************************
+Monday 06 June 2022  16:03:20 +0000 (0:00:00.503)       0:04:37.467 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+ok: [node1.k8s.local -> 127.0.0.1]
+
+TASK [kubeadm-init : Copy /etc/kubernetes/admin.conf from node1 to /home/p/.kube locally] *****************************************************************************************************************
+Monday 06 June 2022  16:03:20 +0000 (0:00:00.279)       0:04:37.746 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local]
+
+TASK [kubeadm-init : Move /home/p/.kube/node1.k8s.local/etc/kubernetes/admin.conf to /home/p/.kube/config on ansible node] ********************************************************************************
+Monday 06 June 2022  16:03:21 +0000 (0:00:00.796)       0:04:38.543 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [kubeadm-init : Do chmod 700 /home/p/.kube/config on ansible node] ***********************************************************************************************************************************
+Monday 06 June 2022  16:03:21 +0000 (0:00:00.454)       0:04:38.997 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [kubeadm-init : Get ~/.kube/config from local file] **************************************************************************************************************************************************
+Monday 06 June 2022  16:03:22 +0000 (0:00:00.301)       0:04:39.298 ***********
+ok: [node1.k8s.local]
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [kubeadm-init : Print ~/.kube/config from local file] ************************************************************************************************************************************************
+Monday 06 June 2022  16:03:22 +0000 (0:00:00.082)       0:04:39.380 ***********
+ok: [node1.k8s.local] => {
+    "kube_config": "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeU1EWXdOakUyTURJMU5Gb1hEVE15TURZd016RTJNREkxTkZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSyswCjlGS2VncE9CSFA2WmNVdk9OR2FlcGpxdmtscmFYYSs2c2VQUlZPNjFFa1RyS1M4NGlJM1lMTEh1QW9MRUUwMnkKK2g1c3UxdjZPdVpDMnB4dDhqSkVrWGdVSzhBTENoa2xsbXZNRjJXK2xzN0pLelp5UzZNeGhRUjV3S09pRnRmRApCdXExVVhkZlZLcXZDeXd3TjJlZTBzM2dBeFpoYVY1dThreGRuMTdURmNOMUQxRnpUOEZ5eXZZV3lqSWNWVnJ6CnMraG1aSHJWT0lLV2t3TDdWUjJlYnRYaVJZWFBCQllMUkh0YlpTcTlsVlk4aDVod2kvV1JWaXRwWWRQemdtaDEKdEVIZnJJbmxIQlJrRzVEN3Uzd0hZeVRjMkRiYmZPMUl5RDZZRnF5OHpyS2I1WlpMWXhiQlc1YTBxZkhoVTUzKwpCTmU1UTN1ZDl3SUxlTm1SUVFrQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZQUnpya1prUUNBNWwwZklWajZQRnBUK0VUTHJNQlVHQTFVZEVRUU8KTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBSXNlUFk1VWMrQXpndTNVenJoRQppVlEzbmRXb3E1Y0NPdkV6VUdIK0VjYUl1Vi8veVF4USswRTRSMk9hazFlck1yK2kxYnArT2R3RTBGYXYvNUpzCmdzMG5neGdXb1BSRG5hTTZ3MEtyd01oeUMzTzN3bEpTbk9jeUduRFQrM1JIcC80M2pWWWV6YnVTR3NoOXlRVGYKeFhBYitvQ3o1ZVVnSnlZdzdFc1d6R3lVeERlUWRVZStwMVBSdWM0d3JWc1hSNGxWWTdsb0czb0hpYThxYWNWdApFMlFhMEsvLzZhYmMwNHIveTd1ejVmdDkyRGpveUdtcUFEYlM1ZHM0QWZ4cTNzaDJ4Qm80anJyaDFrbEtTME9BCmRtMlUyRit4a1VHWlpydEk0MUhMVnhhVE5nUmhpNEo0WWxBTDVLMDZPR3JiRWIxblcwb1RoV3k1eHcrVEo3bCsKVXR3PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\n    server: https://192.168.1.201:6443\n  name: kubernetes\ncontexts:\n- context:\n    cluster: kubernetes\n    user: kubernetes-admin\n  name: kubernetes-admin@kubernetes\ncurrent-context: kubernetes-admin@kubernetes\nkind: Config\npreferences: {}\nusers:\n- name: kubernetes-admin\n  user:\n    client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJVENDQWdtZ0F3SUJBZ0lJRGYvczVSREhHZnN3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TWpBMk1EWXhOakF5TlRSYUZ3MHlNekEyTURZeE5qQXlOVGRhTURReApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1Sa3dGd1lEVlFRREV4QnJkV0psY201bGRHVnpMV0ZrCmJXbHVNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQXRLcU5rdnQrNzFVOExtODMKZHcwdFpsaGtJT3B6a0FHVDRDeVNiRi94U3BGbGIvc0hSRkIxR08vV1BzUGJuNDVqTTJmR1NzV1VXdDF4Z2g1bQpncDVHZmxsQjY2U21iMmZBSkJadHovLzcyMzg3MzhQYVlObEg0RVJHTEcvZFFiQkhvSThkUmZYaFdpMlJrbkl0Cm1BTzJQVE0vcHE1TjEwd21HYWptczJpbElrTlpTUEo3cEp0c2VyODV2S2lDVXRNVnBZVWc4S2l5NFJMNHpKY0UKb3Vaa3BVTnpHb3NrTFloQkxUMzR0WlJFbmlxb25PR2tLcjhLRURHT3hKMzhZNlBlakI1bXRNSGN6U0NLMWVJMQpJaVhwWGN5cmVoRmV5cEljY3hvZnlNY095NXA2MmYwa2xvSUNQOWJ4bi9wNkZXRnZRYmpSSHYrVGZIN0FoVER4CklSQWZ5UUlEQVFBQm8xWXdWREFPQmdOVkhROEJBZjhFQkFNQ0JhQXdFd1lEVlIwbEJBd3dDZ1lJS3dZQkJRVUgKQXdJd0RBWURWUjBUQVFIL0JBSXdBREFmQmdOVkhTTUVHREFXZ0JUMGM2NUdaRUFnT1pkSHlGWStqeGFVL2hFeQo2ekFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBaEZVZkJ0UFZPc2ZDTEhGZllMS3NGaVo0QVB0UjBsdzBELzh1ClNDZ0hVL2h5STk2OTIvWHlxVDh0aHMvZExKNW5FKzV1ZGlERkhTc01rTHVRSUhPVTZ5ODFWeENrYVZDSzF0eGwKSHh5YndVVmFmWTI2MjY1NmJ5Q3hObzVUUk5wSXI0aVFJMDdpcWRYckNkdWNtTXc4Qzd5VjR2UnNUWDBGY1pHMwpaN2xLZ3JuWWNNeE9PUDNITnhZTU1UVEZWNUNsRHZva1NpZ3UzN3YxdTJqRjhiN0JXSFBwa3hteFBoampiNDk2CnlwR0ZQY0xtUzVwaDdHWHA1WGx5RkhaNUUyZ3Q4ZkxZZGw5Z2ZYdUNYZUk5YmZSOEU3bEQzN254WXRiVklHREIKbFdMVE53VEtjLy9YcjRwNkV6aktHaHowcWJzVXhOVmlSMk1BOGI3dWlxTE9FV053N3c9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==\n    client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb2dJQkFBS0NBUUVBdEtxTmt2dCs3MVU4TG04M2R3MHRabGhrSU9wemtBR1Q0Q3lTYkYveFNwRmxiL3NIClJGQjFHTy9XUHNQYm40NWpNMmZHU3NXVVd0MXhnaDVtZ3A1R2ZsbEI2NlNtYjJmQUpCWnR6Ly83MjM4NzM4UGEKWU5sSDRFUkdMRy9kUWJCSG9JOGRSZlhoV2kyUmtuSXRtQU8yUFRNL3BxNU4xMHdtR2FqbXMyaWxJa05aU1BKNwpwSnRzZXI4NXZLaUNVdE1WcFlVZzhLaXk0Ukw0ekpjRW91WmtwVU56R29za0xZaEJMVDM0dFpSRW5pcW9uT0drCktyOEtFREdPeEozOFk2UGVqQjVtdE1IY3pTQ0sxZUkxSWlYcFhjeXJlaEZleXBJY2N4b2Z5TWNPeTVwNjJmMGsKbG9JQ1A5YnhuL3A2RldGdlFialJIditUZkg3QWhURHhJUkFmeVFJREFRQUJBb0lCQUcybExMTE5pMlg1RnNNZgpvRXZTWllFOWw5Y2FNdlJzNExBbW5ON0ZBNDI3M0JJd0NXTCthWEt1N0JtL2lDUzNwNkRsRkVVQTBGNnRFbHhqCjB0Ym04K1Z1aWtGVzllT2ExZE9SQVNoQk5Uc3JaczBROGhIaERHd2hRMjFvbnFGbE9MTks1L3N6bEliRUxScngKekpYN2VyaDl4OTJDMzU4UWlmYjh1TGFkaGNyYWkxaC9KcmhiSUZEVmlZRWRhSGZoL2QxcDJ5WFBWcTFVWlRXUQp3Nk1pM0JiTWp1Tmd4a2xHcHFkOEFBL1FzRmVSM05nNXRhMFFPQlRUdkNCdC94SDBHREdTcU1aV1phSDB0UkZJCjR2TitHV25SZkZjbU1Vdm9iNlRSNEMyb0FKSittUGxLZUtXalc2Z280eTZnU2x5MGNSckp2a2V5MnZIZWU1a2EKQ0k4OHNtRUNnWUVBNVhldjlrVXgvUDBpVWM5SVlsRGwrQnpOelBlNVlNaDA4VjdubXNYU0V4Yjg1TWdCVkEzZApkeUhWWWRaK2RXMHZuVm9lajJ3Ump1bmtEdEQxOWROTUR0UDROL2ZjbEdKZzgyYVViYkhYajF0cEFmUm9BL3FoCmZJUVpWbzJ6ejFvRXhadEVsOEVqOXU2TktOVy9lVWVpRlBMdTNobjMrMnFaU25HMjVtUWdsdVVDZ1lFQXlZNVUKMFhRbW05ejg2SnIxV1RGWXJualI4Zmwxb2JKalZybUlFUlM4NUZpQWhod3FoTEJ0aDBLTkZpSG5GOXN5Q0p2QwpzZ3RzOFZQU1o1VW9KckhLcjh3T3ltTjJFMWNuWjAyK3NuZHhsQlFwSjVTbm84bUJXeEc4bmxlQ2gvY29XRDJBClpsRkxDU1VvTU5TYit0enJVOFg4SWhsTUFpbU1GdHZ5TmdpaDB4VUNnWUJ0NFJBYlp5cjJyK2Y5TUxyQ2lXWjEKbHFWZG5zbmY5RjA3TDJ6TUNpbjhCaWYzRFdiRmJ4WTdjN0lQOVh2OGt0b1lDUTFWTkRSOE1MZUorTG11aXcyQwpsREhwNndCdTlXVGphSjF1b1poTkIwS1RNd3VUekRJRHcrVzJNb2lGbzk5aEdHYVNIR1F5WEN5di94cCs0clJVClA3ZnVGcFZPaU03NmZOVk9JV2dSbVFLQmdBR2RWMGFhUkpqcEMwbWR2Q3RydnNjZkJxZUdsUStuaXk0dHJFNWUKdVNpbklOaHlMMUVDek0zUmxhbkF1Y1l5SmxOMVUvanpLSHRDYmFRUXlOS09pQTRpZDFmZHRodHZqa3hBamkrRgp6MjRkUHpzbThMVGFMMlFZWDBkeGNnVSswSjdzVnpQNm9MeEJCUEpuTVp5djJsN0Fia1dqcUQwNE1md1k1UGJUCjJPQUZBb0dBTFFvRDRyZmRjcmhsQlVtZ0diQnR2VDVzZm1UZmMvbU8rY1ltSFJvMXA5aGE5NG4yY0JncjBJU2sKN0ZYTjhqRVRkeFFSQVhndXV6RTcwWUMvbTViNXJvbmFhc2tmWjBRWWRKei9rYlNnNUR2WkpUazF2ZWFvdFJ5VQpFUUcwM3hYeHFOUENFTFFTVFFQUUhQMXplRXdvVXlOZk0rZkZPdDZiTGh6Q2hSNG5SQ0k9Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg=="
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [kubeadm-init : Delete with rm -rf /home/p/.kube/node1.k8s.local on ansible node] ********************************************************************************************************************
+Monday 06 June 2022  16:03:22 +0000 (0:00:00.083)       0:04:39.463 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [flannel-deploy : Test connection to ansible node with ping] *****************************************************************************************************************************************
+Monday 06 June 2022  16:03:22 +0000 (0:00:00.314)       0:04:39.777 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+ok: [node1.k8s.local -> 127.0.0.1]
+
+TASK [flannel-deploy : Deploy flannel] ********************************************************************************************************************************************************************
+Monday 06 June 2022  16:03:22 +0000 (0:00:00.294)       0:04:40.071 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [flannel-deploy : Print Flannel deploy output] *******************************************************************************************************************************************************
+Monday 06 June 2022  16:03:24 +0000 (0:00:01.331)       0:04:41.403 ***********
+ok: [node1.k8s.local] => {
+    "flannel_deploy_output.stdout_lines": [
+        "podsecuritypolicy.policy/psp.flannel.unprivileged created",
+        "clusterrole.rbac.authorization.k8s.io/flannel created",
+        "clusterrolebinding.rbac.authorization.k8s.io/flannel created",
+        "serviceaccount/flannel created",
+        "configmap/kube-flannel-cfg created",
+        "daemonset.apps/kube-flannel-ds created"
+    ]
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [flannel-deploy : Reboot master node] ****************************************************************************************************************************************************************
+Monday 06 June 2022  16:03:24 +0000 (0:00:00.092)       0:04:41.495 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local]
+
+TASK [flannel-deploy : Test connection to master node] ****************************************************************************************************************************************************
+Monday 06 June 2022  16:03:43 +0000 (0:00:19.181)       0:05:00.677 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+ok: [node1.k8s.local]
+
+TASK [flannel-deploy : Check Flannel Pod] *****************************************************************************************************************************************************************
+Monday 06 June 2022  16:03:44 +0000 (0:00:00.699)       0:05:01.377 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (20 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (19 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (18 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (17 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (16 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (15 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (14 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (13 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (12 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (11 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check Flannel Pod (10 retries left).
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [flannel-deploy : Print Pod Status] ******************************************************************************************************************************************************************
+Monday 06 June 2022  16:05:39 +0000 (0:01:55.217)       0:06:56.594 ***********
+ok: [node1.k8s.local] => {
+    "flannel_podcheck_output.stdout": "Running"
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [kubeadm-join : Test connection with ping] ***********************************************************************************************************************************************************
+Monday 06 June 2022  16:05:39 +0000 (0:00:00.104)       0:06:56.699 ***********
+ok: [node3.k8s.local]
+ok: [node2.k8s.local]
+ok: [node4.k8s.local]
+ok: [node1.k8s.local]
+
+TASK [kubeadm-join : Get kubeadm join command with tokens from local file] ********************************************************************************************************************************
+Monday 06 June 2022  16:05:40 +0000 (0:00:01.306)       0:06:58.006 ***********
+skipping: [node1.k8s.local]
+ok: [node2.k8s.local]
+ok: [node3.k8s.local]
+ok: [node4.k8s.local]
+
+TASK [kubeadm-join : Print kubeadm join command with tokens] **********************************************************************************************************************************************
+Monday 06 June 2022  16:05:40 +0000 (0:00:00.098)       0:06:58.104 ***********
+skipping: [node1.k8s.local]
+ok: [node2.k8s.local] => {
+    "msg": "kubeadm join 192.168.1.201:6443 --token gqunhc.tb72vopv4xg5yudw --discovery-token-ca-cert-hash sha256:3dd6efd1215e39b5c842d0caedbd49773029304b8665c5b07dfa8e6b6988000f"
+}
+ok: [node3.k8s.local] => {
+    "msg": "kubeadm join 192.168.1.201:6443 --token gqunhc.tb72vopv4xg5yudw --discovery-token-ca-cert-hash sha256:3dd6efd1215e39b5c842d0caedbd49773029304b8665c5b07dfa8e6b6988000f"
+}
+ok: [node4.k8s.local] => {
+    "msg": "kubeadm join 192.168.1.201:6443 --token gqunhc.tb72vopv4xg5yudw --discovery-token-ca-cert-hash sha256:3dd6efd1215e39b5c842d0caedbd49773029304b8665c5b07dfa8e6b6988000f"
+}
+
+TASK [kubeadm-join : Execute kubeadm join] ****************************************************************************************************************************************************************
+Monday 06 June 2022  16:05:41 +0000 (0:00:00.090)       0:06:58.194 ***********
+skipping: [node1.k8s.local]
+changed: [node2.k8s.local]
+changed: [node3.k8s.local]
+changed: [node4.k8s.local]
+
+TASK [kubeadm-join : Print kubeadm join output] ***********************************************************************************************************************************************************
+Monday 06 June 2022  16:05:54 +0000 (0:00:13.160)       0:07:11.355 ***********
+skipping: [node1.k8s.local]
+ok: [node2.k8s.local] => {
+    "kubeadm_join_output.stdout_lines": [
+        "[preflight] Running pre-flight checks",
+        "[preflight] Reading configuration from the cluster...",
+        "[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+        "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+        "[kubelet-start] Starting the kubelet",
+        "[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...",
+        "",
+        "This node has joined the cluster:",
+        "* Certificate signing request was sent to apiserver and a response was received.",
+        "* The Kubelet was informed of the new secure connection details.",
+        "",
+        "Run 'kubectl get nodes' on the control-plane to see this node join the cluster."
+    ]
+}
+ok: [node3.k8s.local] => {
+    "kubeadm_join_output.stdout_lines": [
+        "[preflight] Running pre-flight checks",
+        "[preflight] Reading configuration from the cluster...",
+        "[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+        "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+        "[kubelet-start] Starting the kubelet",
+        "[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...",
+        "",
+        "This node has joined the cluster:",
+        "* Certificate signing request was sent to apiserver and a response was received.",
+        "* The Kubelet was informed of the new secure connection details.",
+        "",
+        "Run 'kubectl get nodes' on the control-plane to see this node join the cluster."
+    ]
+}
+ok: [node4.k8s.local] => {
+    "kubeadm_join_output.stdout_lines": [
+        "[preflight] Running pre-flight checks",
+        "[preflight] Reading configuration from the cluster...",
+        "[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'",
+        "[kubelet-start] Writing kubelet configuration to file \"/var/lib/kubelet/config.yaml\"",
+        "[kubelet-start] Writing kubelet environment file with flags to file \"/var/lib/kubelet/kubeadm-flags.env\"",
+        "[kubelet-start] Starting the kubelet",
+        "[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...",
+        "",
+        "This node has joined the cluster:",
+        "* Certificate signing request was sent to apiserver and a response was received.",
+        "* The Kubelet was informed of the new secure connection details.",
+        "",
+        "Run 'kubectl get nodes' on the control-plane to see this node join the cluster."
+    ]
+}
+
+TASK [kubeadm-join : Reboot all nodes] ********************************************************************************************************************************************************************
+Monday 06 June 2022  16:05:54 +0000 (0:00:00.113)       0:07:11.468 ***********
+changed: [node4.k8s.local]
+changed: [node2.k8s.local]
+changed: [node3.k8s.local]
+changed: [node1.k8s.local]
+
+TASK [kubeadm-join : Test connection with ping] ***********************************************************************************************************************************************************
+Monday 06 June 2022  16:06:45 +0000 (0:00:51.018)       0:08:02.487 ***********
+ok: [node2.k8s.local]
+ok: [node4.k8s.local]
+ok: [node1.k8s.local]
+ok: [node3.k8s.local]
+
+TASK [kubeadm-join : Wait until port 6443 is listening on master] *****************************************************************************************************************************************
+Monday 06 June 2022  16:06:46 +0000 (0:00:01.088)       0:08:03.575 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+ok: [node1.k8s.local]
+
+TASK [kubeadm-join : Print port 6443 check output] ********************************************************************************************************************************************************
+Monday 06 June 2022  16:06:47 +0000 (0:00:00.896)       0:08:04.471 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+ok: [node1.k8s.local] => {
+    "port_6443_check": {
+        "attempts": 1,
+        "changed": false,
+        "elapsed": 0,
+        "failed": false,
+        "match_groupdict": {},
+        "match_groups": [],
+        "path": null,
+        "port": 6443,
+        "search_regex": null,
+        "state": "started"
+    }
+}
+
+TASK [kubeadm-join : Get kubectl get no] ******************************************************************************************************************************************************************
+Monday 06 June 2022  16:06:47 +0000 (0:00:00.094)       0:08:04.566 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [kubeadm-join : Print kubectl get no output] *********************************************************************************************************************************************************
+Monday 06 June 2022  16:06:48 +0000 (0:00:00.723)       0:08:05.289 ***********
+ok: [node1.k8s.local] => {
+    "kubectl_getno_output.stdout_lines": [
+        "NAME              STATUS     ROLES           AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                        KERNEL-VERSION           CONTAINER-RUNTIME",
+        "node1.k8s.local   Ready      control-plane   3m33s   v1.24.1   192.168.1.201   <none>        Fedora CoreOS 36.20220505.3.2   5.17.5-300.fc36.x86_64   cri-o://1.22.4",
+        "node2.k8s.local   NotReady   <none>          55s     v1.24.1   192.168.1.202   <none>        Fedora CoreOS 36.20220505.3.2   5.17.5-300.fc36.x86_64   cri-o://1.22.4",
+        "node3.k8s.local   NotReady   <none>          55s     v1.24.1   192.168.1.203   <none>        Fedora CoreOS 36.20220505.3.2   5.17.5-300.fc36.x86_64   cri-o://1.22.4",
+        "node4.k8s.local   NotReady   <none>          55s     v1.24.1   192.168.1.204   <none>        Fedora CoreOS 36.20220505.3.2   5.17.5-300.fc36.x86_64   cri-o://1.22.4"
+    ]
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [kubeadm-join : Get kubectl get pod] *****************************************************************************************************************************************************************
+Monday 06 June 2022  16:06:48 +0000 (0:00:00.097)       0:08:05.387 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [kubeadm-join : Print kubectl get po output] *********************************************************************************************************************************************************
+Monday 06 June 2022  16:06:48 +0000 (0:00:00.640)       0:08:06.027 ***********
+ok: [node1.k8s.local] => {
+    "get_pods.stdout_lines": [
+        "NAMESPACE     NAME                                      READY   STATUS              RESTARTS   AGE     IP              NODE              NOMINATED NODE   READINESS GATES",
+        "kube-system   coredns-6d4b75cb6d-lmmfn                  0/1     ContainerCreating   0          2m18s   <none>          node1.k8s.local   <none>           <none>",
+        "kube-system   coredns-6d4b75cb6d-pl7fr                  0/1     ContainerCreating   0          2m18s   <none>          node1.k8s.local   <none>           <none>",
+        "kube-system   etcd-node1.k8s.local                      1/1     Running             1          3m29s   192.168.1.201   node1.k8s.local   <none>           <none>",
+        "kube-system   kube-apiserver-node1.k8s.local            1/1     Running             1          3m28s   192.168.1.201   node1.k8s.local   <none>           <none>",
+        "kube-system   kube-controller-manager-node1.k8s.local   1/1     Running             1          3m29s   192.168.1.201   node1.k8s.local   <none>           <none>",
+        "kube-system   kube-flannel-ds-cddnh                     0/1     Init:0/2            0          55s     192.168.1.204   node4.k8s.local   <none>           <none>",
+        "kube-system   kube-flannel-ds-dgvdd                     0/1     Init:0/2            0          55s     192.168.1.202   node2.k8s.local   <none>           <none>",
+        "kube-system   kube-flannel-ds-hcjsw                     0/1     Init:0/2            0          55s     192.168.1.203   node3.k8s.local   <none>           <none>",
+        "kube-system   kube-flannel-ds-rvvws                     1/1     Running             0          2m19s   192.168.1.201   node1.k8s.local   <none>           <none>",
+        "kube-system   kube-proxy-2tt9v                          0/1     ContainerCreating   0          55s     192.168.1.203   node3.k8s.local   <none>           <none>",
+        "kube-system   kube-proxy-dlnsg                          0/1     Pending             0          55s     <none>          node2.k8s.local   <none>           <none>",
+        "kube-system   kube-proxy-w8k7b                          0/1     ContainerCreating   0          55s     192.168.1.204   node4.k8s.local   <none>           <none>",
+        "kube-system   kube-proxy-z8jkk                          1/1     Running             0          2m19s   192.168.1.201   node1.k8s.local   <none>           <none>",
+        "kube-system   kube-scheduler-node1.k8s.local            1/1     Running             1          3m29s   192.168.1.201   node1.k8s.local   <none>           <none>"
+    ]
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [coredns-pods : Test connection to ansible node with ping] *******************************************************************************************************************************************
+Monday 06 June 2022  16:06:49 +0000 (0:00:00.148)       0:08:06.176 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+ok: [node1.k8s.local -> 127.0.0.1]
+
+TASK [coredns-pods : Get coredns pods not in 'Running' state] *********************************************************************************************************************************************
+Monday 06 June 2022  16:06:49 +0000 (0:00:00.338)       0:08:06.514 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [coredns-pods : Print coredns pods not in 'Running' state] *******************************************************************************************************************************************
+Monday 06 June 2022  16:06:49 +0000 (0:00:00.389)       0:08:06.903 ***********
+ok: [node1.k8s.local] => {
+    "coredns_notrunning_pods.stdout_lines": [
+        "coredns-6d4b75cb6d-lmmfn",
+        "coredns-6d4b75cb6d-pl7fr"
+    ]
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [coredns-pods : Loop over coredns_pods stdout_lines] *************************************************************************************************************************************************
+Monday 06 June 2022  16:06:49 +0000 (0:00:00.090)       0:08:06.994 ***********
+ok: [node1.k8s.local] => (item=coredns-6d4b75cb6d-lmmfn) => {
+    "msg": "coredns-6d4b75cb6d-lmmfn"
+}
+ok: [node1.k8s.local] => (item=coredns-6d4b75cb6d-pl7fr) => {
+    "msg": "coredns-6d4b75cb6d-pl7fr"
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+TASK [coredns-pods : Delete coredns pods not in 'Running' state] ******************************************************************************************************************************************
+Monday 06 June 2022  16:06:49 +0000 (0:00:00.116)       0:08:07.111 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1] => (item=coredns-6d4b75cb6d-lmmfn)
+changed: [node1.k8s.local -> 127.0.0.1] => (item=coredns-6d4b75cb6d-pl7fr)
+
+TASK [coredns-pods : Check coredns deployment status] *****************************************************************************************************************************************************
+Monday 06 June 2022  16:06:53 +0000 (0:00:03.232)       0:08:10.343 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (30 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (29 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (28 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (27 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (26 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (25 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (24 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (23 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (22 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (21 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (20 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (19 retries left).
+FAILED - RETRYING: [node1.k8s.local -> 127.0.0.1]: Check coredns deployment status (18 retries left).
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [coredns-pods : Get coredns pods] ********************************************************************************************************************************************************************
+Monday 06 June 2022  16:07:24 +0000 (0:00:31.717)       0:08:42.060 ***********
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+changed: [node1.k8s.local -> 127.0.0.1]
+
+TASK [coredns-pods : Print coredns pods not in 'Running' state] *******************************************************************************************************************************************
+Monday 06 June 2022  16:07:25 +0000 (0:00:00.380)       0:08:42.441 ***********
+ok: [node1.k8s.local] => {
+    "coredns_pods.stdout_lines": [
+        "NAME                       READY   STATUS    RESTARTS   AGE   IP           NODE              NOMINATED NODE   READINESS GATES",
+        "coredns-6d4b75cb6d-mh59z   1/1     Running   0          6s    10.244.3.2   node2.k8s.local   <none>           <none>",
+        "coredns-6d4b75cb6d-n7mrz   1/1     Running   0          6s    10.244.1.2   node3.k8s.local   <none>           <none>"
+    ]
+}
+skipping: [node2.k8s.local]
+skipping: [node3.k8s.local]
+skipping: [node4.k8s.local]
+
+PLAY RECAP ************************************************************************************************************************************************************************************************
+node1.k8s.local            : ok=52   changed=24   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0
+node2.k8s.local            : ok=22   changed=9    unreachable=0    failed=0    skipped=34   rescued=0    ignored=0
+node3.k8s.local            : ok=22   changed=9    unreachable=0    failed=0    skipped=34   rescued=0    ignored=0
+node4.k8s.local            : ok=22   changed=9    unreachable=0    failed=0    skipped=34   rescued=0    ignored=0
+
+Monday 06 June 2022  16:07:25 +0000 (0:00:00.107)       0:08:42.549 ***********
+===============================================================================
+fcos-k8s-sh : Execute fcos-k8s.sh ---------------------------------------------------------------------------------------------------------------------------------------------------------------- 154.40s
+flannel-deploy : Check Flannel Pod --------------------------------------------------------------------------------------------------------------------------------------------------------------- 115.22s
+kubeadm-init : Execute kubeadm init --------------------------------------------------------------------------------------------------------------------------------------------------------------- 64.66s
+kubeadm-join : Reboot all nodes ------------------------------------------------------------------------------------------------------------------------------------------------------------------- 51.02s
+coredns-pods : Check coredns deployment status ---------------------------------------------------------------------------------------------------------------------------------------------------- 31.72s
+fcos-k8s-sh : Reboot ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 25.12s
+flannel-deploy : Reboot master node --------------------------------------------------------------------------------------------------------------------------------------------------------------- 19.18s
+remove-python3-for-ansible-service : Reboot ------------------------------------------------------------------------------------------------------------------------------------------------------- 15.90s
+kubeadm-join : Execute kubeadm join --------------------------------------------------------------------------------------------------------------------------------------------------------------- 13.16s
+coredns-pods : Delete coredns pods not in 'Running' state ------------------------------------------------------------------------------------------------------------------------------------------ 3.23s
+Gathering Facts ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 2.75s
+fcos-k8s-sh : Copy fcos-k8s.sh --------------------------------------------------------------------------------------------------------------------------------------------------------------------- 2.09s
+remove-python3-for-ansible-service : Disable python3-for-ansible.service --------------------------------------------------------------------------------------------------------------------------- 1.83s
+remove-python3-for-ansible-service : Force systemd to reread configs ------------------------------------------------------------------------------------------------------------------------------- 1.62s
+flannel-deploy : Deploy flannel -------------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.33s
+kubeadm-join : Test connection with ping ----------------------------------------------------------------------------------------------------------------------------------------------------------- 1.31s
+kubeadm-init : Copy clusterconfig.yaml ------------------------------------------------------------------------------------------------------------------------------------------------------------- 1.21s
+remove-python3-for-ansible-service : Test connection with ping ------------------------------------------------------------------------------------------------------------------------------------- 1.16s
+remove-python3-for-ansible-service : Remove file /etc/python3-for-ansible.done --------------------------------------------------------------------------------------------------------------------- 1.13s
+fcos-k8s-sh : Test connection with ping ------------------------------------------------------------------------------------------------------------------------------------------------------------ 1.10s
+[p@ansible ansible]$
+

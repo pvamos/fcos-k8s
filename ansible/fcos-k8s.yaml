@@ -11,8 +11,8 @@
       # flannel depoy on ansible node
     - role: flannel-deploy
       when: inventory_hostname in groups.master
-      # kubeadm join on workers
+      # kubeadm join on workers (test on master)
     - role: kubeadm-join
-#      when: inventory_hostname in groups.workers
     - role: coredns-pods
       when: inventory_hostname in groups.master
+

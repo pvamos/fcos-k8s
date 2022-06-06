@@ -31,13 +31,27 @@
         "path": "/etc/hosts",
         "contents": {
           "compression": "gzip",
-          "source": "data:;base64,H4sIAAAAAAAC/5TN0arDIAzG8XufwicIJgZPT9/GrcLKnI7Z92esDV0Eb+ZV+PPjE+kPHDhAe7xcrzHfatusfmeF/VrqI67lW1mdWrCZZxwP/TIf1KlFMPhPgGECBHKfj0pdEsJ9ageT+b12lqTS0FJnvVQ/tL6zLJWHlrVFZ62Npa2XnOCZtvQ6vVTzDgAA//9aTkCLnAEAAA=="
+          "source": "data:;base64,H4sIAAAAAAAC/5TOUc6DIAzA8XdP0RM0tBI/P2/DJsnMFBZx91/QxhXDy/rU/PNLgfgPDRokOGaOdzc/YtpAz1lx38a4uCl8q1WrFrYZBqof+uV8p1Ytuob+GanrkZBNfijE0RM++3QwOb/XwrJUrloubCu1rdq2sFaqrVqrLRkAcCFNt9njy29+Pb1UrfOHwS3jRUotZKbb+vbBpYuW2nwCAAD//5U26Jf0AQAA"
         }
       },
       {
         "path": "/etc/sysctl.d/10-disable-ipv6.conf",
         "contents": {
-          "source": "data:,net.ipv6.conf.all.disable_ipv6%3D1%0Anet.ipv6.conf.default.disable_ipv6%3D1%0Anet.ipv6.conf.enp0s4.disable_ipv6%3D1%0A"
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/1JWSMksTkzKSVXwDCgz48pLLdHLLCgz00vOz0vTS8zJ0YNKx4NEFWwVDNGUpKSmJZbmlBBSlppXYFBsgqkKEAAA//80eMvefwAAAA=="
+        }
+      },
+      {
+        "path": "/etc/sysctl.d/99-kubernetes-cri.conf",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/3zMMQoCMRCF4d5TPNg6C4LYeQIPIZPk7ToQJ3E2Kt5eVray8DWv+fgHnOnGgiYuN3b6Auf9oc6M+Ea/Esk1VKRqXdTooM1qHHfGPkbXPHO7YFNIUkrQ1iUWLsAJ+6/T9jyM2i5T9Zd4xu9WN/wLHrfiCj8BAAD//45C8tW1AAAA"
+        }
+      },
+      {
+        "path": "/etc/modules-load.d/crio-net.conf",
+        "contents": {
+          "source": "data:,%23%20Kernel%20modules%20required%20by%20the%20cri-o%20container%20engine.%0Aoverlay%0Abr_netfilter%0A"
         }
       }
     ]
