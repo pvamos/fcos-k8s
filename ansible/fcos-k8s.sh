@@ -71,17 +71,17 @@ sudo curl -fsSL -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$CRIO
 # See: https://kubernetes.io/docs/setup/production-environment/container-runtimes/#cri-o
 # See: https://jebpages.com/2019/02/25/installing-kubeadm-on-fedora-coreos/
 # We configure systemd to load the required kernel modules on the next boot.
-sudo tee /etc/modules-load.d/crio-net.conf << EOF > /dev/null
-# Kernel modules required by the cri-o container engine.
-overlay
-br_netfilter
-EOF
-sudo tee /etc/sysctl.d/99-kubernetes-cri.conf <<- EOF > /dev/null
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-sudo sysctl --system > /dev/null
+#sudo tee /etc/modules-load.d/crio-net.conf << EOF > /dev/null
+## Kernel modules required by the cri-o container engine.
+#overlay
+#br_netfilter
+#EOF
+#sudo tee /etc/sysctl.d/99-kubernetes-cri.conf <<- EOF > /dev/null
+#net.bridge.bridge-nf-call-iptables  = 1
+#"net.ipv4.ip_forward                 = 1
+#net.bridge.bridge-nf-call-ip6tables = 1
+#EOF
+#sudo sysctl --system > /dev/null
 
 # The following is equivalent to 
 #   sudo systemctl enable cri-o
