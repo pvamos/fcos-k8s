@@ -32,10 +32,10 @@
 K8S_VERSION=1.24.1
 # The CRICTL_VERSION must match the tag name on GitHub.
 # See https://github.com/kubernetes-sigs/cri-tools/releases
-CRICTL_VERSION=v1.24.1
+CRICTL_VERSION=v1.24.2
 # cri-o Versions.
 # See https://github.com/cri-o/cri-o/releases
-CRIO_VERSION=1.22.4
+CRIO_VERSION=1.24.1
 CRIO_REPO_VERSION="${CRIO_VERSION%.*}"
 
 ################################################################################
