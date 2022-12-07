@@ -50,14 +50,13 @@ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 # that we have access to the latest version.
 #
 # See: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
-sudo tee /etc/yum.repos.d/kubernetes.repo <<- EOF > /dev/null
+sudo tee /etc/yum.repos.d/kubernetes.repo << EOF > /dev/null
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
 # Enable cri-o repository.

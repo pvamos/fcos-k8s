@@ -5,14 +5,14 @@
   roles:
     - remove-python3-for-ansible-service
     - fcos-k8s-sh
-      # kubeadm init on master
-    - role: kubeadm-init
-      when: inventory_hostname in groups.master
-      # flannel depoy on ansible node
-    - role: flannel-deploy
-      when: inventory_hostname in groups.master
-      # kubeadm join on workers (test on master)
-    - role: kubeadm-join
-    - role: coredns-pods
-      when: inventory_hostname in groups.master
+#      # kubeadm init on master
+#    - role: kubeadm-init
+#      when: inventory_hostname in groups.master
+#      # flannel depoy on ansible node
+#    - role: flannel-deploy
+#      when: inventory_hostname in groups.master
+#      # kubeadm join on workers (test on master)
+#    - role: kubeadm-join
+#    - role: coredns-pods
+#      when: inventory_hostname in groups.master
 
