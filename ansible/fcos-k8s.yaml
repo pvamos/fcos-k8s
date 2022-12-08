@@ -4,7 +4,7 @@
   hosts: controlplane:workers
   roles:
     - remove-python3-for-ansible-service
-    - fcos-k8s-sh
+    - fcos-k8s-base
       # kubeadm init on controlplane
     - role: kubeadm-init
       when: inventory_hostname in groups.controlplane

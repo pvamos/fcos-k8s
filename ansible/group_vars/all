@@ -3,3 +3,8 @@
 # These don't have to be explicitly imported by vars_files: they are autopopulated.
 
 gather_facts: true
+
+k8s_version: 1.25.4
+crictl_version: v1.25.0
+crio_version: 1.25.1
+crio_repo_version: 1.25

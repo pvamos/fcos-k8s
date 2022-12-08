@@ -1,0 +1,107 @@
+---
+# Fedora CoreOS Kubernetes base
+  
+- name: Test connection with ping
+  ansible.builtin.ping:
+
+- block:
+    - name: Set selinux permissive until reboot
+      selinux:
+        policy=targeted
+        state=permissive
+    - name: Disable selinux (required reboot)
+      selinux:
+        state=disabled
+  when: ansible_selinux is defined and ansible_selinux != False
+        and ansible_selinux.status == 'enabled'
+
+- name: Create /etc/yum.repos.d/kubernetes.repo
+  copy:
+    dest: /etc/yum.repos.d/kubernetes.repo
+    content: |
+      [kubernetes]
+      name=Kubernetes
+      baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      enabled=1
+      gpgcheck=1
+      gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+- name: Download the libcontainers repo file
+  ansible.builtin.get_url:
+    url: https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
+    dest: /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo
+
+- name: Download cri-o repo file
+  ansible.builtin.get_url:
+    url: "https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ crio_repo_version }}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:{{ crio_repo_version }}.repo"
+    dest: "/etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{ crio_repo_version }}.repo"
+
+
+# The following is equivalent to
+#   sudo systemctl enable cri-o
+#   sudo systemctl enable kubelet
+# However because we haven't installed cri-o and the kubelet yet we create the
+# symlinks manually so that both services start on the next boot.
+
+- name: Create a symbolic link to enable cri-o service
+  ansible.builtin.file:
+    src: /usr/lib/systemd/system/crio.service
+    dest: /etc/systemd/system/multi-user.target.wants/crio.service
+    owner: root
+    group: root
+    state: link
+    force: true
+
+- name: Create a symbolic link to enable kubelet service
+  ansible.builtin.file:
+    src: /usr/lib/systemd/system/kubelet.service
+    dest: /etc/systemd/system/multi-user.target.wants/kubelet.service
+    owner: root
+    group: root
+    state: link
+    force: true
+
+# The cri-tools from the kubernetes repo are relatively old. We replace the
+# binary with the one from GitHub.
+
+- name: Download cri-tools from GitHub
+  ansible.builtin.get_url:
+    url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ crictl_version }}/crictl-{{ crictl_version }}-Linux-amd64.tar.gz"
+    dest: "/root/crictl-{{ crictl_version }}-Linux-amd64.tar.gz"
+
+- name: Extract crictl-{{ crictl_version }}-Linux-amd64.tar.gz to /usr/local/bin
+  ansible.builtin.unarchive:
+    src: "/root/crictl-{{ crictl_version }}-Linux-amd64.tar.gz"
+    dest: /usr/local/bin
+    remote_src: true
+
+- name: Delete crictl-{{ crictl_version }}-Linux-amd64.tar.gz
+  ansible.builtin.file:
+    path: "/root/crictl-{{ crictl_version }}-Linux-amd64.tar.gz"
+    state: absent
+
+- name: Execute 'rpm-ostree refresh-md'
+  ansible.builtin.raw: rpm-ostree refresh-md
+  register: rpm_ostree_output
+
+- name: Print rpm-ostree output
+  ansible.builtin.debug:
+    var: rpm_ostree_output.stdout_lines
+
+- name: Install the kubelet, kubeadm, cubectl and cri-o binaries
+  ansible.builtin.raw: "rpm-ostree install kubelet-{{ k8s_version }} kubeadm-{{ k8s_version }} kubectl-{{ k8s_version  }} cri-o-{{ crio_version  }}"
+  register: rpm_ostree_output
+
+- name: Print rpm-ostree output
+  ansible.builtin.debug:
+    var: rpm_ostree_output.stdout_lines
+
+- name: Reboot
+  ansible.builtin.reboot:
+    post_reboot_delay: 10
+    reboot_timeout: 600
+
+- name: Test connection with ping
+  ansible.builtin.ping:
+
+
