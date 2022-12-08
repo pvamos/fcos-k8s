@@ -1,6 +1,6 @@
 # fcos-k8s
 
-## Install Kubernetes v1.25.4 on Fedora CoreOS 37.20221106.3.0 with ignition, ansible and kubeadm
+## Install Kubernetes v1.25.4 on Fedora CoreOS 37 with ignition, ansible and kubeadm
 
 This is a simple solution to install a Kubernetes test cluster in a fully automated way.
 
