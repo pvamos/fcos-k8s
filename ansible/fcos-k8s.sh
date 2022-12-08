@@ -29,13 +29,13 @@
 # in order to use the crio container runtime.
 
 # Kubernetes Version
-K8S_VERSION=1.24.1
+K8S_VERSION=1.25.4
 # The CRICTL_VERSION must match the tag name on GitHub.
 # See https://github.com/kubernetes-sigs/cri-tools/releases
-CRICTL_VERSION=v1.24.2
+CRICTL_VERSION=v1.25.0
 # cri-o Versions.
 # See https://github.com/cri-o/cri-o/releases
-CRIO_VERSION=1.24.1
+CRIO_VERSION=1.25.1
 CRIO_REPO_VERSION="${CRIO_VERSION%.*}"
 
 ################################################################################
@@ -77,7 +77,7 @@ sudo curl -fsSL -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$CRIO
 #EOF
 #sudo tee /etc/sysctl.d/99-kubernetes-cri.conf <<- EOF > /dev/null
 #net.bridge.bridge-nf-call-iptables  = 1
-#"net.ipv4.ip_forward                 = 1
+#net.ipv4.ip_forward                 = 1
 #net.bridge.bridge-nf-call-ip6tables = 1
 #EOF
 #sudo sysctl --system > /dev/null

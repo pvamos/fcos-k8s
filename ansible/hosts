@@ -1,4 +1,4 @@
-[master]
+[controlplane]
 node1.k8s.local
 
 [workers]

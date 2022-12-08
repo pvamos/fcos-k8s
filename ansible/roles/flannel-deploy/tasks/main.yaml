@@ -30,7 +30,7 @@
   become: no
   delegate_to: 127.0.0.1
   ansible.builtin.command:
-    cmd: kubectl get pod -n kube-system -l app=flannel -o jsonpath='{..status.phase}'
+    cmd: kubectl get pod -n kube-flannel -l app=flannel -o jsonpath='{..status.phase}'
   register: flannel_podcheck_output
   until: flannel_podcheck_output.stdout == "Running"
   ignore_errors: yes

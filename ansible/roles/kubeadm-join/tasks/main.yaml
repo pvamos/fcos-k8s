@@ -33,7 +33,7 @@
 - name: Test connection with ping
   ansible.builtin.ping:
 
-- name: Wait until port 6443 is listening on master
+- name: Wait until port 6443 is listening on controlplane
   ansible.builtin.wait_for:
     port: 6443
     delay: 0
@@ -43,12 +43,12 @@
   until: port_6443_check.failed != true
   ignore_errors: yes
   retries: 20
-  when: inventory_hostname in groups.master
+  when: inventory_hostname in groups.controlplane
 
 - name: Print port 6443 check output
   ansible.builtin.debug:
     var: port_6443_check
-  when: inventory_hostname in groups.master
+  when: inventory_hostname in groups.controlplane
 
 - name: Get kubectl get no
   remote_user: p
@@ -57,12 +57,12 @@
   ansible.builtin.command:
     cmd: /usr/bin/kubectl get no -owide
   register: kubectl_getno_output
-  when: inventory_hostname in groups.master
+  when: inventory_hostname in groups.controlplane
 
 - name: Print kubectl get no output
   ansible.builtin.debug:
     var: kubectl_getno_output.stdout_lines
-  when: inventory_hostname in groups.master
+  when: inventory_hostname in groups.controlplane
 
 - name: Get kubectl get pod
   remote_user: p
@@ -71,10 +71,10 @@
   ansible.builtin.command:
     cmd: /usr/bin/kubectl get pod --all-namespaces -owide
   register: get_pods
-  when: inventory_hostname in groups.master
+  when: inventory_hostname in groups.controlplane
 
 - name: Print kubectl get po output
   ansible.builtin.debug:
     var: get_pods.stdout_lines
-  when: inventory_hostname in groups.master
+  when: inventory_hostname in groups.controlplane
 
