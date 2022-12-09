@@ -8,7 +8,7 @@
       # kubeadm init on controlplane
     - role: kubeadm-init
       when: inventory_hostname in groups.controlplane
-      # flannel depoy on ansible node
+      # flannel depoy on controlplane
     - role: flannel-deploy
       when: inventory_hostname in groups.controlplane
       # kubeadm join on workers (test on controlplane)
