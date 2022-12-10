@@ -152,7 +152,7 @@ After completion (re)boot from the installed system.
 
 #### A custom service to deploy Python 3
 
-Note that the nodes will have an additional reboot on each node:
+Note that the nodes will have an additional reboot:
 We use a one time run only service to deploy python 3 at ignition to the nodes before ansible:
 
 ```sh
