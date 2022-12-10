@@ -43,11 +43,11 @@ The cluster has one controlplane node and any number of worker nodes.***
 
 Modify the example configuration in `ignition` directory according to each available node.
 
-- Add the ssh key what you will use to connect from the ansible host.
+- Add the ssh key that you will use to connect from the ansible host.
 - Set the hostname in `/etc/hostname`.
 - Check DNS resolution of all node FQDN-s on all nodes.
   - If you use a public or private domain with a DNS server you manage, set the relevant DNS records for the node.
-  - Or alternatively use the `/etc/hosts` file on the nodes, like in the example.
+  - Or use the `/etc/hosts` file on the nodes, like in the example.
 
 <details><summary>See `node1.fcc` example</summary>
 <p>
@@ -141,10 +141,10 @@ butane --pretty --strict ignition/node1.fcc > node1.ign
 ### Install Fedora CoreOS on nodes and apply the ignition config
 
 To install Fedora CoreOS on nodes,
-- you can simply boot from the Fedora CoreOS ISO (like the `fedora-coreos-37.20221106.3.0-live.x86_64.iso` used in the example) and manually apply the ignition config,
+- boot from the Fedora CoreOS ISO (like the `fedora-coreos-37.20221106.3.0-live.x86_64.iso` used in the example) and manually apply the ignition config,
   - either using the `.ign` file locally with `coreos-installer install /dev/XXX --ignition-file=/path/file.ign`,
   - or fetching it with HTTP(S) `coreos-installer install /dev/XXX --ignition-url=https://host.domain.tld/path/file.ign`.
-- Or alternatively you can create customized ISO or PXE images including the ignition configuration, and perform unattended installation.
+- Alternatively, create customized ISO or PXE images including the ignition configuration, and perform unattended installation.
 
 <https://docs.fedoraproject.org/en-US/fedora-coreos/bare-metal/>
 
@@ -152,7 +152,7 @@ After completion (re)boot from the installed system.
 
 #### A custom service to deploy Python 3
 
-Please note, that the nodes will have an additional reboot on each node:
+Note that the nodes will have an additional reboot on each node:
 We use a one time run only service to deploy python 3 at ignition to the nodes before ansible:
 
 ```sh
