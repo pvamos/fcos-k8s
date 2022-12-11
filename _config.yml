@@ -1,1 +1,8 @@
-theme: midnight
+title: Install Kubernetes v1.25.4 on Fedora CoreOS 37 with ignition, ansible and kubeadm
+description: A simple solution to install a Kubernetes test / development cluster in a fully automated way, in minutes.
+remote_theme: pages-themes/midnight@v0.2.0
+plugins:
+- jekyll-remote-theme
+show_downloads: "true"
+#google_analytics: [Your Google Analytics tracking ID]
+
