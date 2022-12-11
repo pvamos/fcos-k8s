@@ -2,7 +2,7 @@
 
 <https://github.com/pvamos/fcos-k8s>
 
-created by Péter Vámos <https://www.linkedin.com/in/pvamos/> pvamos@gmail.com
+created by Péter Vámos pvamos@gmail.com <https://www.linkedin.com/in/pvamos/>
 
 ## Install Kubernetes v1.25.4 on Fedora CoreOS 37 with ignition, ansible and kubeadm
 
