@@ -130,7 +130,7 @@ systemd:
 </p>
 </details>
 
-https://github.com/pvamos/fcos-k8s/blob/main/ignition/node1.fcc
+<https://github.com/pvamos/fcos-k8s/blob/main/ignition/node1.fcc>
 
 ### Generate ignition `.ign` files from `.fcc`
 
