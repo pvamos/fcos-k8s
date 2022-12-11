@@ -2,6 +2,6 @@ title: Install Kubernetes v1.25.4 on Fedora CoreOS 37 with ignition, ansible and
 description: A simple solution to install a Kubernetes test / development cluster in a fully automated way, in minutes.
 theme: jekyll-theme-midnight
 show_downloads: false
-#google_analytics: [Your Google Analytics tracking ID]
+google_analytics: G-2KBQSSTQ98
 
 
