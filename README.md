@@ -1,5 +1,9 @@
 # fcos-k8s
 
+<https://github.com/pvamos/fcos-k8s>
+
+created by Péter Vámos <https://www.linkedin.com/in/pvamos/> pvamos@gmail.com
+
 ## Install Kubernetes v1.25.4 on Fedora CoreOS 37 with ignition, ansible and kubeadm
 
 ***A simple solution to install a Kubernetes test / development cluster in a fully automated way, in minutes.  
