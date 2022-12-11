@@ -130,6 +130,8 @@ systemd:
 </p>
 </details>
 
+https://github.com/pvamos/fcos-k8s/blob/main/ignition/node1.fcc
+
 ### Generate ignition `.ign` files from `.fcc`
 
 After modifying what's necessary in the `*.fcc` configs, `*.ign` files can be generated with `butane`.
