@@ -5,7 +5,7 @@ show_downloads: false
 analytics:
   provider: "google-gtag"
   google:
-    measurement_id: "G-2KBQSSTQ98"
+    measurement_id: "G-GVWXQQ3R78"
     anonymize_ip: false
 
 
