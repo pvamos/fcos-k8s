@@ -2,8 +2,6 @@
 
 <https://github.com/pvamos/fcos-k8s>
 
-created by Péter Vámos pvamos@gmail.com <https://www.linkedin.com/in/pvamos/>
-
 ## Install Kubernetes v1.25.4 on Fedora CoreOS 37 with ignition, ansible and kubeadm
 
 ***A simple solution to install a Kubernetes test / development cluster in a fully automated way, in minutes.  
@@ -268,6 +266,10 @@ kube-system    kube-proxy-7dqjz                          1/1     Running   0    
 kube-system    kube-proxy-tdx4x                          1/1     Running   0          7m16s   192.168.1.204   node4.k8s.local   <none>           <none>
 kube-system    kube-scheduler-node1.k8s.local            1/1     Running   2          9m3s    192.168.1.201   node1.k8s.local   <none>           <none>
 ```
+
+---
+
+created by Péter Vámos pvamos@gmail.com <https://www.linkedin.com/in/pvamos/>
 
 ---
 
